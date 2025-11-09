@@ -10,8 +10,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white; /* helt hvit bakgrunn */
+  background: white url("/logo2.png") center center / 55% no-repeat;
 }
+
 
 .gate-input {
   width: 260px;
