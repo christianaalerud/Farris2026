@@ -27,9 +27,27 @@ body {
 
 .app {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #111827 0, #020817 55%, #000 100%);
+  position: relative;
+  background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
   color: var(--text);
 }
+
+/* halvtransparent logo i bakgrunnen */
+.app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/logo.png") center center / contain no-repeat;
+  opacity: 0.08; /* juster styrken: 0.05 = svak, 0.15 = tydelig */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main, .section, .footer, nav, .gate-card {
+  position: relative;
+  z-index: 1;
+}
+
 
 /* Nav */
 
@@ -103,20 +121,36 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at top, #111827 0, #020817 55%, #000 100%);
+  position: relative;
+  background: linear-gradient(to bottom, #f8fafc, #e2e8f0);
   padding: 24px;
 }
 
-.gate-card {
-  width: 100%;
-  max-width: 360px;
-  padding: 28px 22px 24px;
-  border-radius: var(--radius);
-  background: rgba(9, 9, 15, 0.98);
-  border: 1px solid rgba(148, 163, 253, 0.16);
-  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.8);
-  text-align: center;
+.gate-wrap::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("/logo.png") center center / contain no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
 }
+
+.gate-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  color: var(--text);
+}
+
+
+.gate-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  color: var(--text);
+}
+
 
 .gate-logo {
   width: 60vw;
