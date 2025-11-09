@@ -1,343 +1,93 @@
-:root {
-  --bg: #f8fafc;
-  --bg-soft: #ffffff;
-  --accent: #0077b6;
-  --accent-soft: #00b4d8;
-  --text: #0f172a;
-  --muted: #475569;
-  --radius: 14px;
-  --transition: 0.2s ease;
-  --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
-  font-family: var(--font);
-  background-color: var(--bg);
-  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Layout */
-
-/* ======== INNHOLD / ETTER INNLOGGING ======== */
-.app {
-  min-height: 100vh;
-  background: #f8fafc;
-  color: white;
-}
-
-.nav {
-  background: #38bdf8;
-  color: white;
-}
-
-.nav-link,
-.nav-title {
-  color: white;
-  font-weight: 700;
-}
-
-.main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 32px 18px 40px;
-  background: #60a5fa;
-  border-radius: 12px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
-}
-
-.section {
-  background: #3b82f6;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-
-.section-title {
-  color: white;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.footer {
-  text-align: center;
-  padding: 16px;
-  font-weight: 700;
-  background: #1d4ed8;
-  color: white;
-  border-top: 2px solid #93c5fd;
-}
-
-
-
-/* Nav */
-
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 32px;
-  background: rgba(5, 8, 20, 0.96);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(148, 163, 253, 0.08);
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.nav-logo {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
-
-.nav-title {
-  font-weight: 700;
-  font-size: 18px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-}
-
-.nav-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.nav-link {
-  padding: 6px 10px;
-  font-size: 12px;
-  color: var(--muted);
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: transparent;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.nav-link:hover {
-  color: var(--accent-soft);
-  border-color: rgba(148, 163, 253, 0.3);
-  background: rgba(15, 23, 42, 0.9);
-}
-
-.nav-link-active {
-  color: var(--bg);
-  background: var(--accent-soft);
-  border-color: transparent;
-  font-weight: 600;
-}
-
-/* Gate */
-
-/* ======== FORSIDE MED ANIMERT LOGO ======== */
-@keyframes zoomBg {
-  0% {
-    background-size: 85%;
-  }
-  50% {
-    background-size: 90%;
-  }
-  100% {
-    background-size: 85%;
-  }
-}
-
+/* Forside med logo */
 .gate-wrap {
-  min-height: 100vh;
-  width: 100%;
-  background: url("/logo.png") center center / contain no-repeat;
-  background-color: #38bdf8;
+  position: fixed;
+  inset: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  background: url("/logo.png") center center / contain no-repeat,
+              linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
   color: white;
-  overflow: hidden;
   animation: zoomBg 12s ease-in-out infinite;
 }
 
-
-.gate-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.08); /* gjør logoen litt “dus” */
-  backdrop-filter: blur(2px);
+@keyframes zoomBg {
+  0%, 100% { background-size: 85%; }
+  50% { background-size: 90%; }
 }
 
-/* ======== GLASS-EFFEKT PÅ PASSORDBOKS ======== */
+/* Passordboksen */
 .gate-card {
-  position: relative;
-  z-index: 2;
-  padding: 18px 28px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.25);  /* litt mer transparent */
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
-  color: white;
-  font-weight: 700;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 20px 30px;
+  text-align: center;
 }
-
 
 .gate-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 800;
   text-transform: uppercase;
-  color: white;
-  margin-bottom: 8px;
 }
 
-.gate-sub,
-.gate-info {
-  color: white;
+.gate-sub {
   font-weight: 600;
-  letter-spacing: 0.04em;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .gate-input {
-  width: 240px;
   padding: 10px 14px;
   border: 2px solid white;
   border-radius: 999px;
   background: transparent;
   color: white;
-  font-size: 14px;
-  font-weight: bold;
   text-align: center;
-  outline: none;
-}
-
-.gate-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
 }
 
 .gate-button {
-  margin-top: 12px;
-  background: white;
-  color: #1e3a8a;
-  font-weight: 800;
+  margin-top: 10px;
+  padding: 8px 16px;
   border: none;
   border-radius: 999px;
-  padding: 8px 20px;
+  font-weight: bold;
+  background: white;
+  color: #2563eb;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.gate-button:hover {
-  transform: translateY(-1px);
-  background: #e2e8f0;
 }
 
 .gate-error {
-  color: #ffbaba;
+  color: #ffe0e0;
   margin-top: 6px;
-  font-size: 12px;
   font-weight: bold;
 }
 
+/* Innhold etter innlogging */
+.app {
+  min-height: 100vh;
+  background: #38bdf8;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-/* Main content */
+.header {
+  padding-top: 60px;
+}
 
 .main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 24px 18px 40px;
+  padding: 20px;
 }
-
-.section {
-  margin-bottom: 26px;
-  padding: 18px 16px 16px;
-  border-radius: var(--radius);
-  background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.06), transparent),
-    rgba(6, 8, 18, 0.98);
-  border: 1px solid rgba(75, 85, 99, 0.6);
-}
-
-.section-title {
-  margin: 0 0 10px;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--accent-soft);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-.section-body {
-  font-size: 13px;
-  color: var(--text);
-  line-height: 1.6;
-}
-
-.section-body ul,
-.section-body ol {
-  margin: 6px 0 0 16px;
-  padding: 0;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.section-body a {
-  color: var(--accent-soft);
-  text-decoration: none;
-}
-
-.section-body a:hover {
-  text-decoration: underline;
-}
-
-.mt {
-  margin-top: 8px;
-}
-
-/* Footer */
 
 .footer {
-  border-top: 1px solid rgba(75, 85, 99, 0.8);
-  padding: 10px 18px 14px;
-  font-size: 10px;
-  color: var(--muted);
-  text-align: center;
-  background: rgba(3, 7, 18, 0.98);
-}
-
-/* ======== FADE-IN ANIMASJON ======== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* selve hele passord-siden fader inn */
-.gate-wrap {
-  animation: fadeIn 1.2s ease forwards;
-}
-
-/* kortet med passordfeltet flyter mykt inn litt senere */
-.gate-card {
-  animation: fadeIn 1.2s ease 0.3s forwards;
-  opacity: 0; /* start usynlig til animasjonen kjører */
+  background: #1e40af;
+  padding: 10px;
+  font-weight: bold;
 }
