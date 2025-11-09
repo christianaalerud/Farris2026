@@ -20,8 +20,7 @@ export default function App() {
     return (
       <div className="gate-wrap">
         <div className="gate-card">
-          <h1 className="gate-title">Farris Triatlon 26´</h1>
-          <p className="gate-sub">Triatlon og akvatlon i fantastisk natur!</p>
+          <h1 className="gate-title">Farris Triatlon 2026</h1>
           <form onSubmit={handleSubmit}>
             <input
               type="password"
@@ -31,7 +30,7 @@ export default function App() {
               className="gate-input"
             />
             <button type="submit" className="gate-button">
-              Gå inn
+              ENTER
             </button>
             {error && <p className="gate-error">{error}</p>}
           </form>
