@@ -119,10 +119,11 @@ body {
 }
 
 .gate-logo {
-  width: 82px;
-  height: 82px;
+  width: 60vw;
+  max-width: 500px;
+  height: auto;
   object-fit: contain;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .gate-title {
