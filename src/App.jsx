@@ -19,6 +19,7 @@ export default function App() {
   if (!authorized) {
     return (
       <div className="gate-wrap">
+        <div className="gate-logo"></div>
         <div className="gate-card">
           <h1 className="gate-title">Farris Triatlon 2026</h1>
           <form onSubmit={handleSubmit}>
