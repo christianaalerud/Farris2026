@@ -10,9 +10,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
- background: linear-gradient(135deg, #38bdf8 0%, #60a5fa 100%);
-animation: zoomBg 12s ease-in-out infinite;
+  background: white; /* helt hvit bakgrunn */
 }
+
+.gate-input {
+  width: 260px;
+  padding: 10px 14px;
+  border: 2px solid #0f172a;
+  border-radius: 999px;
+  background: transparent;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  background-color: #0f172a; /* mørk bakgrunn inni feltet */
+}
+
+.gate-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gate-error {
+  position: absolute;
+  bottom: 30%;
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 
 .gate-logo {
   position: absolute;
@@ -54,14 +80,6 @@ animation: zoomBg 12s ease-in-out infinite;
   margin-bottom: 16px;
 }
 
-.gate-input {
-  padding: 10px 14px;
-  border: 2px solid white;
-  border-radius: 999px;
-  background: transparent;
-  color: white;
-  text-align: center;
-}
 
 .gate-button {
   margin-top: 10px;
