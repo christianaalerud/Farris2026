@@ -1,7 +1,7 @@
 {
-  "name": "farris2026",
-  "version": "0.0.1",
+  "name": "farris2026-vercel",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
