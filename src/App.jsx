@@ -16,29 +16,23 @@ export default function App() {
     }
   }
 
-  if (!authorized) {
-    return (
-      <div className="gate-wrap">
-        <div className="gate-logo"></div>
-        <div className="gate-card">
-          <h1 className="gate-title">Farris Triatlon 2026</h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="password"
-              placeholder="Skriv inn passord"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              className="gate-input"
-            />
-            <button type="submit" className="gate-button">
-              ENTER
-            </button>
-            {error && <p className="gate-error">{error}</p>}
-          </form>
-        </div>
-      </div>
-    );
-  }
+ if (!authorized) {
+  return (
+    <div className="gate-wrap">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="password"
+          placeholder="Passord"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="gate-input"
+        />
+        {error && <p className="gate-error">{error}</p>}
+      </form>
+    </div>
+  );
+}
+
 
   return (
     <div className="app">
