@@ -10,27 +10,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white url("/logo2.png") center center / 55% no-repeat;
+  background: white url("/logo2.png") center center / 45% no-repeat;
 }
 
+/* gjør logoen automatisk mindre på små skjermer */
+@media (max-width: 600px) {
+  .gate-wrap {
+    background-size: 70%;
+  }
+}
 
 .gate-input {
   width: 260px;
   padding: 10px 14px;
-  border: 2px solid #0f172a;
+  border: 2px solid rgba(255, 255, 255, 0.9);
   border-radius: 999px;
-  background: transparent;
+  background: transparent; /* Gjennomsiktig */
   color: white;
   text-align: center;
   font-size: 16px;
   font-weight: bold;
   outline: none;
-  background-color: #0f172a; /* lys bakgrunn inni feltet */
 }
 
 .gate-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
 }
+
 
 .gate-error {
   position: absolute;
