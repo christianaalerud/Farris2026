@@ -1,10 +1,10 @@
 :root {
-  --bg: #050816;
-  --bg-soft: #0f172a;
-  --accent: #22c55e;
-  --accent-soft: #38bdf8;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
+  --bg: #f8fafc;
+  --bg-soft: #ffffff;
+  --accent: #0077b6;
+  --accent-soft: #00b4d8;
+  --text: #0f172a;
+  --muted: #475569;
   --radius: 14px;
   --transition: 0.2s ease;
   --font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
