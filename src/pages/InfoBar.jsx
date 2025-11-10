@@ -4,15 +4,18 @@ import "./InfoBar.css";
 const InfoBar = () => {
   return (
     <div className="info-bar">
+      {/* Svøm */}
       <div className="info-item">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 64 64"
-          className="icon"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="icon">
           <circle cx="32" cy="32" r="30" fill="none" stroke="#222" strokeWidth="2" />
           <path
-            d="M15 36c6-4 10 0 14 0s8-4 14-4 10 4 14 4"
+            d="M6 36c6-4 12 0 18 0s12-4 18-4 12 4 18 4"
+            stroke="#222"
+            strokeWidth="2"
+            fill="none"
+          />
+          <path
+            d="M22 22l4-4m-2 4v-6m12 6h8m-20 0h4"
             stroke="#222"
             strokeWidth="2"
             fill="none"
@@ -24,14 +27,16 @@ const InfoBar = () => {
         </div>
       </div>
 
+      {/* Sykkel */}
       <div className="info-item">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 64 64"
-          className="icon"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="icon">
           <circle cx="32" cy="32" r="30" fill="none" stroke="#222" strokeWidth="2" />
-          <line x1="12" y1="32" x2="52" y2="32" stroke="#222" strokeWidth="2" />
+          <path
+            d="M10 40c6-8 12-6 18-2s12 8 18 2 12-8 18-2"
+            stroke="#222"
+            strokeWidth="2"
+            fill="none"
+          />
         </svg>
         <div>
           <div className="label">Sykkel</div>
@@ -39,19 +44,11 @@ const InfoBar = () => {
         </div>
       </div>
 
+      {/* Løp */}
       <div className="info-item">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 64 64"
-          className="icon"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="icon">
           <circle cx="32" cy="32" r="30" fill="none" stroke="#222" strokeWidth="2" />
-          <path
-            d="M12 32h40"
-            stroke="#222"
-            strokeWidth="2"
-            fill="none"
-          />
+          <line x1="10" y1="32" x2="54" y2="32" stroke="#222" strokeWidth="2" />
         </svg>
         <div>
           <div className="label">Løp</div>
