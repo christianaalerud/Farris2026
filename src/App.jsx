@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const logo = "/logo2.png"; // ligger i public/
+const logo = "/logo2.png"; // henter fra public/
 
 export default function App() {
   const [accessGranted, setAccessGranted] = useState(false);
@@ -12,47 +12,51 @@ export default function App() {
     if (password === "yousonofabitchimin") {
       setAccessGranted(true);
 
-      // Oppdater fanetittel og ikon
-      document.title = "Farris Triatlon";
-      const link =
-        document.querySelector("link[rel~='icon']") ||
-        document.createElement("link");
-      link.rel = "icon";
-      link.href = logo;
-      document.getElementsByTagName("head")[0].appendChild(link);
+      // Sett tittel og favicon når bruker er inne
+      if (typeof document !== "undefined") {
+        document.title = "Farris Triatlon";
+
+        let link = document.querySelector("link[rel~='icon']");
+        if (!link) {
+          link = document.createElement("link");
+          link.rel = "icon";
+          document.head.appendChild(link);
+        }
+        link.href = logo;
+      }
     } else {
       alert("Wrong password");
     }
   };
 
-  // ---- FORSIDE ----
+  // ---------- FORSIDE MED PASSORD ----------
   if (!accessGranted) {
     return (
-      <div className="relative flex flex-col items-center justify-center min-h-screen bg-white">
-        {/* Logo */}
+      <div className="relative min-h-screen bg-white flex items-center justify-center">
+        {/* Logo i midten */}
         <img
           src={logo}
           alt="Farris Triatlon Logo"
           className="w-72 md:w-96 object-contain"
         />
 
-        {/* Passordfelt flytende over logo */}
+        {/* Passordfelt flytende oppå logoen, midt på skjermen */}
         <form
           onSubmit={handleSubmit}
-          className="absolute top-1/2 transform -translate-y-1/2"
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
         >
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-transparent border-b border-gray-400 text-black text-center text-lg outline-none placeholder-gray-400"
+            className="pointer-events-auto bg-transparent border-b border-gray-400 text-black text-center text-lg outline-none placeholder-gray-400"
           />
         </form>
 
-        {/* Invites only */}
+        {/* invites only – venstre, ca 5cm fra bunnen, stor & bold */}
         <p
-          className="absolute left-10 text-black font-bold text-3xl opacity-90"
+          className="absolute left-10 text-black font-bold text-3xl"
           style={{ bottom: "5cm" }}
         >
           invites only
@@ -61,13 +65,14 @@ export default function App() {
     );
   }
 
-  // ---- HOVEDSIDE ----
+  // ---------- HOVEDSIDE ----------
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
       <Navbar racesOpen={racesOpen} setRacesOpen={setRacesOpen} />
+      {/* Gjennomsiktig logo i bakgrunnen */}
       <img
         src={logo}
-        alt="Background logo"
+        alt="Farris Triatlon bakgrunnslogo"
         className="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none select-none"
       />
       <div className="relative z-10 flex flex-col items-center justify-center h-[80vh] text-gray-800">
@@ -80,24 +85,25 @@ export default function App() {
   );
 }
 
-// ---- NAVBAR ----
+// ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen }) {
   return (
     <nav className="w-full bg-white border-b border-gray-200 relative z-20">
       <ul className="flex justify-center space-x-8 py-4 text-gray-800 font-medium">
+        {/* Races: trykk for å åpne underfaner */}
         <li
           className="cursor-pointer relative select-none"
           onClick={() => setRacesOpen(!racesOpen)}
         >
           Races ▾
           {racesOpen && (
-            <ul className="absolute bg-white shadow-lg mt-2 rounded-lg border border-gray-100">
-              {["Triatlon", "Akvatlon", "Svømming", "Løping"].map((race) => (
+            <ul className="absolute left-0 mt-2 bg-white shadow-lg rounded-lg border border-gray-100">
+              {["Triatlon", "Akvatlon", "Svømming", "Løping"].map((item) => (
                 <li
-                  key={race}
-                  className="px-4 py-2 hover:bg-gray-100 whitespace-nowrap cursor-pointer"
+                  key={item}
+                  className="px-4 py-2 whitespace-nowrap hover:bg-gray-100 cursor-pointer"
                 >
-                  {race}
+                  {item}
                 </li>
               ))}
             </ul>
