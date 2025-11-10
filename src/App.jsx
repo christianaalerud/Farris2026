@@ -217,7 +217,7 @@ export default function App() {
         {page === "Om oss" && <OmOss />}
         {page === "Påmelding" && <Pamelding />}
 
-      </div>
+
     </div>
   );
 }
