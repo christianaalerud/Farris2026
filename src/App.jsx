@@ -135,9 +135,7 @@ export default function App() {
           Velkommen
         </p>
       </div>
-    </div>
-  );
-        
+    </div>   
 } 
         
 // ---------- NAVBAR ----------
