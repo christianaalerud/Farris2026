@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const logo = "/logo2.png"; // henter fra public/
+const logo = "/logo2.png"; // hentes fra public/
 
 export default function App() {
   const [accessGranted, setAccessGranted] = useState(false);
@@ -12,27 +12,24 @@ export default function App() {
     if (password === "yousonofabitchimin") {
       setAccessGranted(true);
 
-      // Sett tittel og favicon når bruker er inne
-      if (typeof document !== "undefined") {
-        document.title = "Farris Triatlon";
-
-        let link = document.querySelector("link[rel~='icon']");
-        if (!link) {
-          link = document.createElement("link");
-          link.rel = "icon";
-          document.head.appendChild(link);
-        }
-        link.href = logo;
+      // Oppdater faneikon og tittel
+      document.title = "Farris Triatlon";
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
       }
+      link.href = logo;
     } else {
       alert("Wrong password");
     }
   };
 
-  // ---------- FORSIDE MED PASSORD ----------
+  // -------- FORSIDE --------
   if (!accessGranted) {
     return (
-      <div className="relative min-h-screen bg-white flex items-center justify-center">
+      <div className="relative flex items-center justify-center min-h-screen bg-white overflow-hidden">
         {/* Logo i midten */}
         <img
           src={logo}
@@ -40,23 +37,23 @@ export default function App() {
           className="w-72 md:w-96 object-contain"
         />
 
-        {/* Passordfelt flytende oppå logoen, midt på skjermen */}
+        {/* Passordfelt oppå logo */}
         <form
           onSubmit={handleSubmit}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          className="absolute inset-0 flex items-center justify-center"
         >
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="pointer-events-auto bg-transparent border-b border-gray-400 text-black text-center text-lg outline-none placeholder-gray-400"
+            className="bg-transparent border-b border-gray-400 text-black text-center text-lg outline-none placeholder-gray-400"
           />
         </form>
 
-        {/* invites only – venstre, ca 5cm fra bunnen, stor & bold */}
+        {/* invites only */}
         <p
-          className="absolute left-10 text-black font-bold text-3xl"
+          className="absolute text-black font-bold text-4xl left-10"
           style={{ bottom: "5cm" }}
         >
           invites only
@@ -65,18 +62,21 @@ export default function App() {
     );
   }
 
-  // ---------- HOVEDSIDE ----------
+  // -------- HOVEDSIDE --------
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
       <Navbar racesOpen={racesOpen} setRacesOpen={setRacesOpen} />
-      {/* Gjennomsiktig logo i bakgrunnen */}
+
+      {/* Bakgrunnslogo */}
       <img
         src={logo}
-        alt="Farris Triatlon bakgrunnslogo"
+        alt="Bakgrunnslogo"
         className="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none select-none"
       />
+
+      {/* Innhold midt på */}
       <div className="relative z-10 flex flex-col items-center justify-center h-[80vh] text-gray-800">
-        <h1 className="text-4xl md:text-6xl font-light tracking-wide">
+        <h1 className="text-5xl md:text-6xl font-light tracking-wide">
           Farris Triatlon
         </h1>
         <p className="mt-4 text-lg text-gray-600">Velkommen</p>
@@ -85,12 +85,12 @@ export default function App() {
   );
 }
 
-// ---------- NAVBAR ----------
+// -------- NAVBAR --------
 function Navbar({ racesOpen, setRacesOpen }) {
   return (
     <nav className="w-full bg-white border-b border-gray-200 relative z-20">
-      <ul className="flex justify-center space-x-8 py-4 text-gray-800 font-medium">
-        {/* Races: trykk for å åpne underfaner */}
+      <ul className="flex justify-center space-x-10 py-4 text-gray-800 font-medium">
+        {/* Klikkbar Races */}
         <li
           className="cursor-pointer relative select-none"
           onClick={() => setRacesOpen(!racesOpen)}
