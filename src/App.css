@@ -1,64 +1,134 @@
+/* ---------- GRUNNLEGGENDE STIL ---------- */
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: white;
+  color: #333;
 }
 
-/* Gjør innholdet flytende */
-.container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
+h1 {
+  margin-top: 0;
 }
 
-/* Standard layout (for store skjermer) */
-.header {
+/* ---------- KONTAINER ---------- */
+.home-container {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 40px 0;
-}
-
-.logo {
-  width: 200px;
-  height: auto;
-}
-
-.info-section {
-  display: flex;
-  gap: 40px;
   align-items: flex-start;
+  max-width: 1200px;
+  margin: 80px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
 }
 
-/* Bilder i kolonne på mobil */
-.info-section img {
+/* ---------- TEKST ---------- */
+.home-text {
+  flex: 1 1 60%;
+  padding-right: 40px;
+}
+
+.home-text p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ---------- BILDER ---------- */
+.home-images {
+  flex: 1 1 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.home-images img {
   width: 100%;
-  max-width: 400px;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
-/* ---------- MOBILVISNING ---------- */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    text-align: center;
-  }
+/* ---------- LOGO ---------- */
+.logo-top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 10;
+}
 
-  .info-section {
+.logo-top img {
+  height: 120px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* ---------- NAVBAR ---------- */
+nav {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+nav li {
+  cursor: pointer;
+}
+
+/* ---------- MOBILTILPASNING ---------- */
+@media (max-width: 900px) {
+  .home-container {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin: 40px auto;
   }
 
-  .logo {
-    width: 150px;
+  .home-text {
+    padding-right: 0;
+  }
+
+  .home-images {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .logo-top {
+    justify-content: center;
+    padding-left: 0;
+  }
+
+  .logo-top img {
+    height: 80px;
+  }
+
+  nav ul {
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 16px;
   }
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 28px;
   }
 
-  p {
-    font-size: 1rem;
-  }
-}
+  .home-text p {
+    font-size: 16p
