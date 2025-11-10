@@ -9,6 +9,7 @@ import Løypeprofiler from "./pages/Løypeprofiler.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import OmOss from "./pages/OmOss.jsx";
 import Pamelding from "./pages/Pamelding.jsx";
+import InfoBar from "./pages/InfoBar";
 
 
 const logo = "/logo2.png";
@@ -132,7 +133,17 @@ export default function App() {
     pointerEvents: "none",
   }}
 />
+function App() {
+  return (
+    <div>
+      {/* Hovedfaner her */}
+      <InfoBar />
+      {/* Resten av forsiden */}
+    </div>
+  );
+}
 
+export default App;
 
 
 
