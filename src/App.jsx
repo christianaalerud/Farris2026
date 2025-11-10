@@ -170,7 +170,7 @@ export default function App() {
         langt til at du rekker å angre, men ikke lenge nok til at du gir opp.
         Du kan melde deg på én, to eller alle tre disipliner. Her er det plass til både 
         deg som trener jevnt og deg som tenker "hvor vanskelig kan det være?"
-
+   </p>
   <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
         Farris Triatlon handler om å stille opp, kjenne på mestringen og ha det skikkelig gøy underveis 
         uansett tempo, form eller erfaring. Det blir selvfølgelig utdeling av medaljer og 
