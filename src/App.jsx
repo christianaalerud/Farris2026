@@ -33,26 +33,22 @@ export default function App() {
         setRacesOpen={setRacesOpen}
         setPage={setPage}
       />
+{/* Bakgrunnslogo */}
 <img
-  src={logo}
-  alt="logo3.png"
-  style={{ height: "50px", width: "auto" }}
+  src={backgroundLogo}
+  alt="logo2.png"
+  style={{
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "60vw",
+    maxWidth: "800px",
+    opacity: 0.08,
+    pointerEvents: "none",
+    zIndex: 1,
+  }}
 />
-
-      <img
-        src={logo}
-        alt="logo2.png"
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "60vw",
-          maxWidth: "800px",
-          opacity: 0.1,
-          pointerEvents: "none",
-        }}
-      />
 
       <InfoBar />
 
@@ -162,7 +158,7 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
       >
         <img
           src={logo}
-          alt="Farris Triatlon logo"
+          alt="logo3.png"
           style={{ height: "50px", width: "auto" }}
         />
       </div>
