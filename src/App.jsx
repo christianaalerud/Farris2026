@@ -1,52 +1,59 @@
 import { useState } from "react";
 
-const logo = "/logo2.png"; // hentet fra public/
+const logo = "/logo2.png"; // ligger i public/
 
 export default function App() {
   const [password, setPassword] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
-  const [showRaces, setShowRaces] = useState(false);
+  const [racesOpen, setRacesOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password.trim() === "yousonofabitchimin") {
       setAccessGranted(true);
       document.title = "Farris Triatlon";
-      let link = document.querySelector("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement("link");
-        link.rel = "icon";
-        document.head.appendChild(link);
-      }
+      const link =
+        document.querySelector("link[rel~='icon']") ||
+        document.createElement("link");
+      link.rel = "icon";
       link.href = logo;
+      document.head.appendChild(link);
     } else alert("Wrong password");
   };
 
   // ---------- FORSIDE ----------
   if (!accessGranted) {
     return (
-      <div className="relative w-screen h-screen bg-white">
-        {/* Logo midt på skjermen */}
+      <div
+        style={{
+          position: "relative",
+          height: "100vh",
+          width: "100vw",
+          backgroundColor: "white",
+          overflow: "hidden",
+        }}
+      >
+        {/* Logo */}
         <img
           src={logo}
           alt="Farris Triatlon logo"
-          className="absolute"
           style={{
+            position: "absolute",
             top: "50%",
             left: "50%",
-            width: "18rem",
+            width: "300px",
             transform: "translate(-50%, -60%)",
           }}
         />
 
-        {/* Passordfelt flytende over logo */}
+        {/* Passordfelt */}
         <form
           onSubmit={handleSubmit}
-          className="absolute"
           style={{
+            position: "absolute",
             top: "50%",
             left: "50%",
-            transform: "translate(-50%, -20%)",
+            transform: "translate(-50%, 20%)",
           }}
         >
           <input
@@ -54,14 +61,28 @@ export default function App() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="bg-transparent border-b border-gray-500 text-black text-center text-xl outline-none placeholder-gray-400"
+            style={{
+              background: "transparent",
+              border: "none",
+              borderBottom: "2px solid #888",
+              textAlign: "center",
+              fontSize: "18px",
+              outline: "none",
+              color: "#000",
+            }}
           />
         </form>
 
-        {/* invites only – venstre nede */}
+        {/* invites only */}
         <p
-          className="absolute text-black font-bold text-5xl"
-          style={{ left: "40px", bottom: "5cm" }}
+          style={{
+            position: "absolute",
+            left: "40px",
+            bottom: "5cm",
+            color: "black",
+            fontWeight: "bold",
+            fontSize: "42px",
+          }}
         >
           invites only
         </p>
@@ -71,53 +92,116 @@ export default function App() {
 
   // ---------- HOVEDSIDE ----------
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
-      <Navbar showRaces={showRaces} setShowRaces={setShowRaces} />
+    <div
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        backgroundColor: "white",
+        overflow: "hidden",
+      }}
+    >
+      <Navbar racesOpen={racesOpen} setRacesOpen={setRacesOpen} />
 
-      {/* Watermark i midten */}
-      <div className="pointer-events-none select-none fixed inset-0 flex items-center justify-center -z-10">
-        <img
-          src={logo}
-          alt="Bakgrunnslogo"
-          className="w-[60vw] max-w-[800px] opacity-10"
-        />
-      </div>
+      {/* Gjennomsiktig logo */}
+      <img
+        src={logo}
+        alt="Background logo"
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "60vw",
+          maxWidth: "800px",
+          opacity: 0.1,
+          pointerEvents: "none",
+        }}
+      />
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-[80vh] text-gray-800">
-        <h1 className="text-5xl font-light tracking-wide">Farris Triatlon</h1>
-        <p className="mt-4 text-lg text-gray-600">Velkommen</p>
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "80vh",
+          color: "#333",
+        }}
+      >
+        <h1 style={{ fontSize: "56px", fontWeight: "300" }}>Farris Triatlon</h1>
+        <p style={{ marginTop: "16px", fontSize: "20px", color: "#555" }}>
+          Velkommen
+        </p>
       </div>
     </div>
   );
 }
 
 // ---------- NAVBAR ----------
-function Navbar({ showRaces, setShowRaces }) {
+function Navbar({ racesOpen, setRacesOpen }) {
   return (
-    <nav className="relative z-20 w-full bg-white border-b border-gray-200">
-      <ul className="flex justify-center space-x-10 py-4 text-gray-800 font-medium">
+    <nav
+      style={{
+        width: "100%",
+        background: "white",
+        borderBottom: "1px solid #ddd",
+        position: "relative",
+        zIndex: 20,
+      }}
+    >
+      <ul
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "40px",
+          listStyle: "none",
+          padding: "16px",
+          margin: 0,
+          fontWeight: 500,
+        }}
+      >
         <li
-          className="relative cursor-pointer select-none"
-          onClick={() => setShowRaces((open) => !open)}
+          style={{ cursor: "pointer", position: "relative" }}
+          onClick={() => setRacesOpen(!racesOpen)}
         >
           Races ▾
-          {showRaces && (
-            <ul className="absolute left-0 mt-2 bg-white shadow-lg rounded-lg border border-gray-100">
-              {["Triatlon", "Akvatlon", "Svømming", "Løping"].map((item) => (
+          {racesOpen && (
+            <ul
+              style={{
+                position: "absolute",
+                left: 0,
+                top: "100%",
+                background: "white",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                borderRadius: "6px",
+                padding: 0,
+                marginTop: "4px",
+                listStyle: "none",
+              }}
+            >
+              {["Triatlon", "Akvatlon", "Svømming", "Løping"].map((r) => (
                 <li
-                  key={item}
-                  className="px-4 py-2 hover:bg-gray-100 whitespace-nowrap cursor-pointer"
+                  key={r}
+                  style={{
+                    padding: "8px 16px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseOver={(e) => (e.target.style.background = "#f3f3f3")}
+                  onMouseOut={(e) => (e.target.style.background = "white")}
                 >
-                  {item}
+                  {r}
                 </li>
               ))}
             </ul>
           )}
         </li>
-        <li className="cursor-pointer hover:text-gray-500">Deltakermanual</li>
-        <li className="cursor-pointer hover:text-gray-500">Løypeprofiler</li>
-        <li className="cursor-pointer hover:text-gray-500">FAQ</li>
-        <li className="cursor-pointer hover:text-gray-500">Om oss</li>
+        <li style={{ cursor: "pointer" }}>Deltakermanual</li>
+        <li style={{ cursor: "pointer" }}>Løypeprofiler</li>
+        <li style={{ cursor: "pointer" }}>FAQ</li>
+        <li style={{ cursor: "pointer" }}>Om oss</li>
       </ul>
     </nav>
   );
