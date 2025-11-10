@@ -1,5 +1,15 @@
 import { useState } from "react";
 
+import Triatlon from "./pages/Triatlon.jsx";
+import Akvatlon from "./pages/Akvatlon.jsx";
+import Svømming from "./pages/Svømming.jsx";
+import Løping from "./pages/Løping.jsx";
+import Deltakermanual from "./pages/Deltakermanual.jsx";
+import Løypeprofiler from "./pages/Løypeprofiler.jsx";
+import FAQ from "./pages/FAQ.jsx";
+import OmOss from "./pages/OmOss.jsx";
+
+
 const logo = "/logo2.png";
 
 export default function App() {
