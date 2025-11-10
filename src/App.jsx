@@ -133,25 +133,7 @@ export default function App() {
 
       <div style={{ position: "relative", zIndex: 10 }}>
     {page === "home" && null}
-          <div
-            style={{
-              height: "80vh",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img
-              src={logo}
-              alt="Logo"
-              style={{
-                width: "420px",
-                opacity: 0.1,
-                pointerEvents: "none",
-              }}
-            />
-          </div>
-        )}
+      
         {page === "Triatlon" && <Triatlon />}
         {page === "Akvatlon" && <Akvatlon />}
         {page === "Svømming" && <Svømming />}
