@@ -14,7 +14,6 @@ import InfoBar from "./pages/InfoBar";
 const logo = "/logo3.png";          // brukes i menyen
 const backgroundLogo = "/logo2.png"; // brukes som bakgrunn (kan byttes)
 
-
 export default function App() {
   const [racesOpen, setRacesOpen] = useState(false);
   const [page, setPage] = useState("home");
@@ -28,27 +27,30 @@ export default function App() {
         overflow: "hidden",
       }}
     >
+      {/* Her sender vi logo som prop */}
       <Navbar
+        logo={logo}
         racesOpen={racesOpen}
         setRacesOpen={setRacesOpen}
         setPage={setPage}
       />
-{/* Bakgrunnslogo */}
-<img
-  src={backgroundLogo}
-  alt="logo2.png"
-  style={{
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "60vw",
-    maxWidth: "800px",
-    opacity: 0.08,
-    pointerEvents: "none",
-    zIndex: 1,
-  }}
-/>
+
+      {/* Bakgrunnslogo */}
+      <img
+        src={backgroundLogo}
+        alt="Bakgrunnslogo"
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "60vw",
+          maxWidth: "800px",
+          opacity: 0.08,
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
 
       <InfoBar />
 
@@ -72,23 +74,23 @@ export default function App() {
                 Velkommen til Farris Triatlon 2026!
               </h1>
               <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
-                Farris Triatlon er et lavterskelarrangement for deg som liker frisk luft, 
-                fine folk og en utfordring du kan skryte av resten av året. Her får du nesten 
+                Farris Triatlon er et lavterskelarrangement for deg som liker frisk luft,
+                fine folk og en utfordring du kan skryte av resten av året. Her får du nesten
                 olympiske distanser, men med lokal sjarm og null krav om toppform.
               </p>
               <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
-                Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet. 
+                Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet.
                 Ingen bølger, men kanskje en gjedde som lurer på hva du driver med.
-                Deretter venter omtrent 40 km på sykkel gjennom Oklungen, Langangen og Bjørkedalen. 
-                Det blir asfalt, svinger, motbakker og god anledning til å snakke litt høyt med seg selv. 
-                Til slutt runder vi av med litt over 10 km løping på asfalt og skogsvei – akkurat passe 
+                Deretter venter omtrent 40 km på sykkel gjennom Oklungen, Langangen og Bjørkedalen.
+                Det blir asfalt, svinger, motbakker og god anledning til å snakke litt høyt med seg selv.
+                Til slutt runder vi av med litt over 10 km løping på asfalt og skogsvei – akkurat passe
                 langt til at du rekker å angre, men ikke lenge nok til at du gir opp.
-                Du kan melde deg på én, to eller alle tre disipliner. Her er det plass til både 
+                Du kan melde deg på én, to eller alle tre disipliner. Her er det plass til både
                 deg som trener jevnt og deg som tenker "hvor vanskelig kan det være?"
               </p>
               <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
-                Farris Triatlon handler om å stille opp, kjenne på mestringen og ha det skikkelig gøy underveis 
-                uansett tempo, form eller erfaring. Det blir selvfølgelig utdeling av medaljer og 
+                Farris Triatlon handler om å stille opp, kjenne på mestringen og ha det skikkelig gøy underveis
+                uansett tempo, form eller erfaring. Det blir selvfølgelig utdeling av medaljer og
                 finisher t-skjorte til alle som fullfører.
               </p>
             </div>
@@ -136,7 +138,7 @@ export default function App() {
 }
 
 // ---------- NAVBAR ----------
-function Navbar({ racesOpen, setRacesOpen, setPage }) {
+function Navbar({ logo, racesOpen, setRacesOpen, setPage }) {
   return (
     <nav
       style={{
@@ -158,8 +160,8 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
       >
         <img
           src={logo}
-          alt="logo3.png"
-          style={{ height: "50px", width: "auto" }}
+          alt="Farris Triatlon logo"
+          style={{ height: "55px", width: "auto" }}
         />
       </div>
 
@@ -237,4 +239,3 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
     </nav>
   );
 }
-
