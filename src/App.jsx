@@ -91,7 +91,7 @@ export default function App() {
   }
 
   // ---------- HOVEDSIDE ----------
-  return (
+  return ( {
     <div
       style={{
         position: "relative",
@@ -137,7 +137,8 @@ export default function App() {
       </div>
     </div>
   );
-} }
+        
+} 
         
 // ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen }) {
