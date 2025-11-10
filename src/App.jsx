@@ -9,14 +9,13 @@ import Løypeprofiler from "./pages/Løypeprofiler.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import OmOss from "./pages/OmOss.jsx";
 
-
 const logo = "/logo2.png";
 
 export default function App() {
   const [password, setPassword] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
   const [racesOpen, setRacesOpen] = useState(false);
-const [page, setPage] = useState("home");
+  const [page, setPage] = useState("home");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +34,7 @@ const [page, setPage] = useState("home");
     }
   };
 
+  // ---------- FORSIDE ----------
   if (!accessGranted) {
     return (
       <div
@@ -56,16 +56,16 @@ const [page, setPage] = useState("home");
             transform: "translate(-50%, -60%)",
           }}
         />
-  <form
-  onSubmit={handleSubmit}
-  style={{
-    position: "absolute",
-    top: "calc(50% + 10cm)",   // flytter den 5 cm lenger ned
-    left: "50%",
-    transform: "translateX(-50%)",
-  }}
->
 
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            position: "absolute",
+            top: "calc(50% + 5cm)",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
           <input
             type="password"
             placeholder="Password"
@@ -82,13 +82,14 @@ const [page, setPage] = useState("home");
             }}
           />
         </form>
+
         <p
           style={{
             position: "absolute",
             left: "40px",
             bottom: "5cm",
             fontWeight: "900",
-            fontSize: "60px",
+            fontSize: "70px",
             WebkitTextStroke: "2px black",
             color: "transparent",
           }}
@@ -99,6 +100,7 @@ const [page, setPage] = useState("home");
     );
   }
 
+  // ---------- HOVEDSIDE ----------
   return (
     <div
       style={{
@@ -108,13 +110,12 @@ const [page, setPage] = useState("home");
         overflow: "hidden",
       }}
     >
-         <Navbar
+      <Navbar
         racesOpen={racesOpen}
         setRacesOpen={setRacesOpen}
         setPage={setPage}
       />
 
-      {/* Watermark */}
       <img
         src={logo}
         alt="Background logo"
@@ -130,7 +131,6 @@ const [page, setPage] = useState("home");
         }}
       />
 
-      {/* Innhold for aktiv side */}
       <div style={{ position: "relative", zIndex: 10 }}>
         {page === "home" && (
           <div
@@ -161,8 +161,11 @@ const [page, setPage] = useState("home");
         {page === "FAQ" && <FAQ />}
         {page === "Om oss" && <OmOss />}
       </div>
+    </div>
   );
 }
+
+// ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen, setPage }) {
   return (
     <nav
@@ -187,11 +190,7 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
       >
         <li
           style={{ cursor: "pointer", position: "relative" }}
-onClick={() => {
-  setPage(r);
-  setRacesOpen(false);
-}}
-
+          onClick={() => setRacesOpen(!racesOpen)}
         >
           Races ▾
           {racesOpen && (
@@ -216,6 +215,10 @@ onClick={() => {
                     cursor: "pointer",
                     whiteSpace: "nowrap",
                   }}
+                  onClick={() => {
+                    setPage(r);
+                    setRacesOpen(false);
+                  }}
                   onMouseOver={(e) => (e.target.style.background = "#f3f3f3")}
                   onMouseOut={(e) => (e.target.style.background = "white")}
                 >
@@ -225,18 +228,18 @@ onClick={() => {
             </ul>
           )}
         </li>
-  <li style={{ cursor: "pointer" }} onClick={() => setPage("Deltakermanual")}>
-  Deltakermanual
-</li>
-<li style={{ cursor: "pointer" }} onClick={() => setPage("Løypeprofiler")}>
-  Løypeprofiler
-</li>
-<li style={{ cursor: "pointer" }} onClick={() => setPage("FAQ")}>
-  FAQ
-</li>
-<li style={{ cursor: "pointer" }} onClick={() => setPage("Om oss")}>
-  Om oss
-</li>
+        <li style={{ cursor: "pointer" }} onClick={() => setPage("Deltakermanual")}>
+          Deltakermanual
+        </li>
+        <li style={{ cursor: "pointer" }} onClick={() => setPage("Løypeprofiler")}>
+          Løypeprofiler
+        </li>
+        <li style={{ cursor: "pointer" }} onClick={() => setPage("FAQ")}>
+          FAQ
+        </li>
+        <li style={{ cursor: "pointer" }} onClick={() => setPage("Om oss")}>
+          Om oss
+        </li>
       </ul>
     </nav>
   );
