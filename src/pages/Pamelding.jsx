@@ -15,7 +15,7 @@ export default function Pamelding() {
       </p>
 
       <form
-        action="https://formspree.io/f/melddegpa123" // ← BYTT ut denne med din egen Formspree-URL
+        action="https://formspree.io/f/mblqrnav"
         method="POST"
         style={{
           display: "flex",
