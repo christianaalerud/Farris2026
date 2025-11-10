@@ -11,7 +11,9 @@ import OmOss from "./pages/OmOss.jsx";
 import Pamelding from "./pages/Pamelding.jsx";
 import InfoBar from "./pages/InfoBar";
 
-const logo = "/logo3.png"; // ny logo
+const logo = "/logo3.png";          // brukes i menyen
+const backgroundLogo = "/logo2.png"; // brukes som bakgrunn (kan byttes)
+
 
 export default function App() {
   const [racesOpen, setRacesOpen] = useState(false);
@@ -31,10 +33,15 @@ export default function App() {
         setRacesOpen={setRacesOpen}
         setPage={setPage}
       />
+<img
+  src={logo}
+  alt="logo3.png"
+  style={{ height: "50px", width: "auto" }}
+/>
 
       <img
         src={logo}
-        alt="Background logo"
+        alt="logo2.png"
         style={{
           position: "fixed",
           top: "50%",
