@@ -116,7 +116,7 @@ export default function App() {
         setPage={setPage}
       />
 
-    {accessGranted && (
+{page !== "home" && (
   <img
     src={logo}
     alt="Background logo"
@@ -132,6 +132,7 @@ export default function App() {
     }}
   />
 )}
+
 
 
       <div style={{ position: "relative", zIndex: 10 }}>
