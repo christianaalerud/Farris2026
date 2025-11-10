@@ -68,6 +68,31 @@ export default function App() {
               zIndex: 10,
             }}
           >
+            {/* Stor logo oppe til venstre, under InfoBar */}
+<div
+  style={{
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingLeft: "40px",
+    marginTop: "20px",
+    marginBottom: "10px",
+    position: "relative",
+    zIndex: 10,
+  }}
+  onClick={() => setPage("home")}
+>
+  <img
+    src={logo}
+    alt="Farris Triatlon logo"
+    style={{
+      height: "120px", // ← større logo
+      width: "auto",
+      cursor: "pointer",
+    }}
+  />
+</div>
+
             {/* VENSTRE SIDE – TEKST */}
             <div style={{ flex: "1 1 60%", paddingRight: "40px" }}>
               <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>
@@ -138,7 +163,7 @@ export default function App() {
 }
 
 // ---------- NAVBAR ----------
-function Navbar({ logo, racesOpen, setRacesOpen, setPage }) {
+function Navbar({ racesOpen, setRacesOpen, setPage }) {
   return (
     <nav
       style={{
@@ -148,35 +173,10 @@ function Navbar({ logo, racesOpen, setRacesOpen, setPage }) {
         position: "relative",
         zIndex: 20,
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center", // sentrer hele navbaren horisontalt
-        padding: "10px 40px",
+        justifyContent: "center",
+        padding: "10px 0",
       }}
     >
-      {/* Logo til venstre */}
-      <div
-        style={{
-          position: "absolute", // gjør at logoen blir stående til venstre
-          left: "40px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          display: "flex",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
-        onClick={() => setPage("home")}
-      >
-        <img
-          src={logo}
-          alt="Farris Triatlon logo"
-          style={{
-            height: "80px", // ← øk denne for større logo
-            width: "auto",
-          }}
-        />
-      </div>
-
-      {/* Meny i midten */}
       <ul
         style={{
           display: "flex",
@@ -186,7 +186,7 @@ function Navbar({ logo, racesOpen, setRacesOpen, setPage }) {
           margin: 0,
           padding: 0,
           fontWeight: 500,
-          fontSize: "18px", // litt større skrift for balanse
+          fontSize: "18px",
         }}
       >
         <li style={{ cursor: "pointer" }} onClick={() => setPage("home")}>
