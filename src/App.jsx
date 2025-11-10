@@ -11,30 +11,12 @@ import OmOss from "./pages/OmOss.jsx";
 import Pamelding from "./pages/Pamelding.jsx";
 import InfoBar from "./pages/InfoBar";
 
-const logo = "/logo2.png";
+const logo = "/logo3.png"; // ny logo
 
 export default function App() {
-  const [password, setPassword] = useState("");
-  const [accessGranted, setAccessGranted] = useState(false);
   const [racesOpen, setRacesOpen] = useState(false);
   const [page, setPage] = useState("home");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password.trim() === "yousonofabitchimin") {
-      setAccessGranted(true);
-      document.title = "Farris Triatlon";
-      let link = document.querySelector("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement("link");
-        link.rel = "icon";
-        document.head.appendChild(link);
-      }
-      link.href = logo;
-    } else {
-      alert("Wrong password");
-    }
-  };
 
   // ---------- FORSIDE ----------
   if (!accessGranted) {
@@ -228,16 +210,33 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
         borderBottom: "1px solid #ddd",
         position: "relative",
         zIndex: 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "10px 40px",
       }}
     >
+      {/* Logo til venstre */}
+      <div
+        style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        onClick={() => setPage("home")}
+      >
+        <img
+          src={logo}
+          alt="Farris Triatlon logo"
+          style={{ height: "50px", width: "auto" }}
+        />
+      </div>
+
+      {/* Meny til høyre */}
       <ul
         style={{
           display: "flex",
           justifyContent: "center",
           gap: "40px",
           listStyle: "none",
-          padding: "16px",
           margin: 0,
+          padding: 0,
           fontWeight: 500,
         }}
       >
@@ -303,3 +302,4 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
     </nav>
   );
 }
+
