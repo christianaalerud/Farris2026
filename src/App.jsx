@@ -188,6 +188,9 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
           fontWeight: 500,
         }}
       >
+        <li style={{ cursor: "pointer" }} onClick={() => setPage("home")}>
+  Hjem
+</li>
         <li
           style={{ cursor: "pointer", position: "relative" }}
           onClick={() => setRacesOpen(!racesOpen)}
