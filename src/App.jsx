@@ -107,4 +107,7 @@ function Navbar({ racesOpen, setRacesOpen }) {
         <li className="cursor-pointer hover:text-gray-500">Løypeprofiler</li>
         <li className="cursor-pointer hover:text-gray-500">FAQ</li>
         <li className="cursor-pointer hover:text-gray-500">Om oss</li>
-      </ul
+      </ul>
+    </nav>
+  );
+}
