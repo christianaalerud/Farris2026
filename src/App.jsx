@@ -149,23 +149,34 @@ function Navbar({ logo, racesOpen, setRacesOpen, setPage }) {
         zIndex: 20,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "center", // sentrer hele navbaren horisontalt
         padding: "10px 40px",
       }}
     >
       {/* Logo til venstre */}
       <div
-        style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        style={{
+          position: "absolute", // gjør at logoen blir stående til venstre
+          left: "40px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+        }}
         onClick={() => setPage("home")}
       >
         <img
           src={logo}
           alt="Farris Triatlon logo"
-          style={{ height: "55px", width: "auto" }}
+          style={{
+            height: "80px", // ← øk denne for større logo
+            width: "auto",
+          }}
         />
       </div>
 
-      {/* Meny til høyre */}
+      {/* Meny i midten */}
       <ul
         style={{
           display: "flex",
@@ -175,6 +186,7 @@ function Navbar({ logo, racesOpen, setRacesOpen, setPage }) {
           margin: 0,
           padding: 0,
           fontWeight: 500,
+          fontSize: "18px", // litt større skrift for balanse
         }}
       >
         <li style={{ cursor: "pointer" }} onClick={() => setPage("home")}>
