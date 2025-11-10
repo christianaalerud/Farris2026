@@ -45,15 +45,16 @@ export default function App() {
             transform: "translate(-50%, -60%)",
           }}
         />
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, 20%)",
-          }}
-        >
+  <form
+  onSubmit={handleSubmit}
+  style={{
+    position: "absolute",
+    top: "calc(50% + 5cm)",   // flytter den 5 cm lenger ned
+    left: "50%",
+    transform: "translateX(-50%)",
+  }}
+>
+
           <input
             type="password"
             placeholder="Password"
@@ -81,7 +82,7 @@ export default function App() {
             color: "transparent",
           }}
         >
-          invites only
+          Invites only
         </p>
       </div>
     );
