@@ -132,7 +132,7 @@ export default function App() {
       />
 
       <div style={{ position: "relative", zIndex: 10 }}>
-        {page === "home" && (
+    {page === "home" && null}
           <div
             style={{
               height: "80vh",
