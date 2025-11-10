@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const logo = "/logo2.png"; // ligger i public/
+const logo = "/logo2.png";
 
 export default function App() {
   const [password, setPassword] = useState("");
@@ -12,16 +12,18 @@ export default function App() {
     if (password.trim() === "yousonofabitchimin") {
       setAccessGranted(true);
       document.title = "Farris Triatlon";
-      const link =
-        document.querySelector("link[rel~='icon']") ||
-        document.createElement("link");
-      link.rel = "icon";
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
       link.href = logo;
-      document.head.appendChild(link);
-    } else alert("Wrong password");
+    } else {
+      alert("Wrong password");
+    }
   };
 
-  // ---------- FORSIDE ----------
   if (!accessGranted) {
     return (
       <div
@@ -30,10 +32,8 @@ export default function App() {
           height: "100vh",
           width: "100vw",
           backgroundColor: "white",
-          overflow: "hidden",
         }}
       >
-        {/* Logo */}
         <img
           src={logo}
           alt="Farris Triatlon logo"
@@ -45,8 +45,6 @@ export default function App() {
             transform: "translate(-50%, -60%)",
           }}
         />
-
-        {/* Passordfelt */}
         <form
           onSubmit={handleSubmit}
           style={{
@@ -72,25 +70,23 @@ export default function App() {
             }}
           />
         </form>
-
-        {/* invites only */}
-<p
-  style={{
-    position: "absolute",
-    left: "40px",
-    bottom: "5cm",
-    fontWeight: "900",
-    fontSize: "70px",
-    WebkitTextStroke: "2px black",
-    color: "transparent",
-  }}
->
-  invites only
-</p>
-
+        <p
+          style={{
+            position: "absolute",
+            left: "40px",
+            bottom: "5cm",
+            fontWeight: "900",
+            fontSize: "70px",
+            WebkitTextStroke: "2px black",
+            color: "transparent",
+          }}
+        >
+          invites only
+        </p>
+      </div>
+    );
   }
 
-  // ---------- HOVEDSIDE ----------
   return (
     <div
       style={{
@@ -101,8 +97,6 @@ export default function App() {
       }}
     >
       <Navbar racesOpen={racesOpen} setRacesOpen={setRacesOpen} />
-
-      {/* Gjennomsiktig logo */}
       <img
         src={logo}
         alt="Background logo"
@@ -117,29 +111,10 @@ export default function App() {
           pointerEvents: "none",
         }}
       />
-
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "80vh",
-          color: "#333",
-        }}
-      >
-        <h1 style={{ fontSize: "56px", fontWeight: "300" }}>Farris Triatlon</h1>
-        <p style={{ marginTop: "16px", fontSize: "20px", color: "#555" }}>
-          Velkommen
-        </p>
-      </div>
     </div>
-  ); // <-- avslutter return-blokken
-} // <-- avslutter App-funksjonen fullstendig
+  );
+}
 
-// ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen }) {
   return (
     <nav
