@@ -116,22 +116,21 @@ export default function App() {
         setPage={setPage}
       />
 
-{page !== "home" && (
-  <img
-    src={logo}
-    alt="Background logo"
-    style={{
-      position: "fixed",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      width: "60vw",
-      maxWidth: "800px",
-      opacity: 0.1,
-      pointerEvents: "none",
-    }}
-  />
-)}
+<img
+  src={logo}
+  alt="Background logo"
+  style={{
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "60vw",
+    maxWidth: "800px",
+    opacity: 0.1,
+    pointerEvents: "none",
+  }}
+/>
+
 
 
 
