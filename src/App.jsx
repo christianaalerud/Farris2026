@@ -135,9 +135,10 @@ export default function App() {
           Velkommen
         </p>
       </div>
-    </div>   
-} 
-        
+    </div>
+  ); // <-- lukker return-delen
+}    // <-- lukker App-funksjonen
+
 // ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen }) {
   return (
