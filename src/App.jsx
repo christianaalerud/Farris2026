@@ -41,7 +41,7 @@ export default function App() {
             position: "absolute",
             top: "50%",
             left: "50%",
-            width: "300px",
+            width: "420px",
             transform: "translate(-50%, -60%)",
           }}
         />
@@ -74,20 +74,20 @@ export default function App() {
         </form>
 
         {/* invites only */}
-        <p
-          style={{
-            position: "absolute",
-            left: "40px",
-            bottom: "5cm",
-            color: "black",
-            fontWeight: "bold",
-            fontSize: "42px",
-          }}
-        >
-          invites only
-        </p>
-      </div>
-    );
+<p
+  style={{
+    position: "absolute",
+    left: "40px",
+    bottom: "5cm",
+    fontWeight: "900",
+    fontSize: "70px",
+    WebkitTextStroke: "2px black",
+    color: "transparent",
+  }}
+>
+  invites only
+</p>
+
   }
 
   // ---------- HOVEDSIDE ----------
