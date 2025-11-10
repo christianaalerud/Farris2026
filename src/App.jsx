@@ -49,7 +49,7 @@ export default function App() {
   onSubmit={handleSubmit}
   style={{
     position: "absolute",
-    top: "calc(50% + 5cm)",   // flytter den 5 cm lenger ned
+    top: "calc(50% + 10cm)",   // flytter den 5 cm lenger ned
     left: "50%",
     transform: "translateX(-50%)",
   }}
@@ -77,7 +77,7 @@ export default function App() {
             left: "40px",
             bottom: "5cm",
             fontWeight: "900",
-            fontSize: "70px",
+            fontSize: "60px",
             WebkitTextStroke: "2px black",
             color: "transparent",
           }}
