@@ -204,7 +204,7 @@ export default function App() {
       />
     </div>
   </div>
-)}
+));
 
       
         {page === "Triatlon" && <Triatlon />}
