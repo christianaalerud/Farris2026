@@ -161,10 +161,8 @@ const [page, setPage] = useState("home");
         {page === "FAQ" && <FAQ />}
         {page === "Om oss" && <OmOss />}
       </div>
-
   );
 }
-
 function Navbar({ racesOpen, setRacesOpen, setPage }) {
   return (
     <nav
