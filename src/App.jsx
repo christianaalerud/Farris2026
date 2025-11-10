@@ -20,6 +20,10 @@ export default function App() {
 
 
   // ---------- HOVEDSIDE ----------
+export default function App() {
+  const [racesOpen, setRacesOpen] = useState(false);
+  const [page, setPage] = useState("home");
+
   return (
     <div
       style={{
@@ -29,6 +33,7 @@ export default function App() {
         overflow: "hidden",
       }}
     >
+
       <Navbar
         racesOpen={racesOpen}
         setRacesOpen={setRacesOpen}
