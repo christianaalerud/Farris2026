@@ -1,3 +1,4 @@
+import "./App.css";
 import { useState } from "react";
 
 import Triatlon from "./pages/Triatlon.jsx";
