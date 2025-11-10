@@ -137,7 +137,64 @@ export default function App() {
 
 
       <div style={{ position: "relative", zIndex: 10 }}>
-    {page === "home" && null}
+ {page === "home" && (
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "flex-start",
+      maxWidth: "1200px",
+      margin: "80px auto",
+      padding: "0 20px",
+      position: "relative",
+      zIndex: 10,
+    }}
+  >
+    {/* VENSTRE SIDE – TEKST */}
+    <div style={{ flex: "1 1 60%", paddingRight: "40px" }}>
+      <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>
+        Velkommen til Farris Triatlon 2026!
+      </h1>
+      <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
+        Farris Triatlon arrangeres i hjertet av Larvik, der innsjøen møter
+        havet. Et arrangement for både nybegynnere og erfarne utøvere – med
+        triatlon, akvatlon, svømming og løping på programmet.
+      </p>
+      <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
+        Opplev den unike atmosfæren rundt Farrisvannet, med start og mål i
+        idylliske omgivelser. Hold deg oppdatert her på siden for påmelding,
+        løypeprofiler og praktisk informasjon.
+      </p>
+    </div>
+
+    {/* HØYRE SIDE – BILDER */}
+    <div
+      style={{
+        flex: "1 1 35%",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+      }}
+    >
+      <img
+        src="/images/triatlon1.jpg"
+        alt="Triatlonbilde 1"
+        style={{ width: "100%", borderRadius: "12px" }}
+      />
+      <img
+        src="/images/triatlon2.jpg"
+        alt="Triatlonbilde 2"
+        style={{ width: "100%", borderRadius: "12px" }}
+      />
+      <img
+        src="/images/triatlon3.jpg"
+        alt="Triatlonbilde 3"
+        style={{ width: "100%", borderRadius: "12px" }}
+      />
+    </div>
+  </div>
+)}
+
       
         {page === "Triatlon" && <Triatlon />}
         {page === "Akvatlon" && <Akvatlon />}
