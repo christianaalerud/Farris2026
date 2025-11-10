@@ -147,6 +147,8 @@ export default function App() {
         {page === "Løypeprofiler" && <Løypeprofiler />}
         {page === "FAQ" && <FAQ />}
         {page === "Om oss" && <OmOss />}
+        {page === "Påmelding" && <Pamelding />}
+
       </div>
     </div>
   );
@@ -230,6 +232,9 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
         <li style={{ cursor: "pointer" }} onClick={() => setPage("Om oss")}>
           Om oss
         </li>
+        <li style={{ cursor: "pointer" }} onClick={() => setPage("Påmelding")}>
+  Påmelding
+</li>
       </ul>
     </nav>
   );
