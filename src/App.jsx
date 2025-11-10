@@ -133,19 +133,8 @@ export default function App() {
     pointerEvents: "none",
   }}
 />
-function App() {
-  return (
-    <div>
-      {/* Hovedfaner her */}
-      <InfoBar />
-      {/* Resten av forsiden */}
-    </div>
-  );
-}
 
-export default App;
-
-
+     <InfoBar />  
 
       <div style={{ position: "relative", zIndex: 10 }}>
  {page === "home" && (
