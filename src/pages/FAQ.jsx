@@ -32,7 +32,7 @@ export default function FAQ() {
        {
       question: "Kan jeg donere penger til arrangementet?",
       answer:
-        "Ja, absolutt. Vi trenger penger til egenkapital, så det kommer godt med!",
+        "Ja, absolutt. Vi trenger penger til egenkapital, så det kommer godt med! Vipps til 94780990 (helst) eller 90956083.",
     },
        {
       question: "Hvor skal man sove, spise og drite?",
