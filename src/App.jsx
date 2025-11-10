@@ -8,6 +8,8 @@ import Deltakermanual from "./pages/Deltakermanual.jsx";
 import Løypeprofiler from "./pages/Løypeprofiler.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import OmOss from "./pages/OmOss.jsx";
+import Pamelding from "./pages/Pamelding.jsx";
+
 
 const logo = "/logo2.png";
 
