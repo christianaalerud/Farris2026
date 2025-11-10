@@ -91,7 +91,7 @@ export default function App() {
   }
 
   // ---------- HOVEDSIDE ----------
-  return ( {
+  return ( 
     <div
       style={{
         position: "relative",
@@ -134,10 +134,10 @@ export default function App() {
         <p style={{ marginTop: "16px", fontSize: "20px", color: "#555" }}>
           Velkommen
         </p>
-      </div>
+        </div>
     </div>
-  ); // <-- lukker return-delen
-}    // <-- lukker App-funksjonen
+  ); // lukker return-blokken i App
+} // lukker selve App-funksjonen
 
 // ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen }) {
@@ -176,9 +176,9 @@ function Navbar({ racesOpen, setRacesOpen }) {
                 background: "white",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                 borderRadius: "6px",
-                padding: 0,
-                marginTop: "4px",
                 listStyle: "none",
+                padding: 0,
+                margin: 0,
               }}
             >
               {["Triatlon", "Akvatlon", "Svømming", "Løping"].map((r) => (
