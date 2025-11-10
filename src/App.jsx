@@ -16,6 +16,7 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [accessGranted, setAccessGranted] = useState(false);
   const [racesOpen, setRacesOpen] = useState(false);
+const [page, setPage] = useState("home");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,7 +108,13 @@ export default function App() {
         overflow: "hidden",
       }}
     >
-      <Navbar racesOpen={racesOpen} setRacesOpen={setRacesOpen} />
+         <Navbar
+        racesOpen={racesOpen}
+        setRacesOpen={setRacesOpen}
+        setPage={setPage}
+      />
+
+      {/* Watermark */}
       <img
         src={logo}
         alt="Background logo"
@@ -122,11 +129,43 @@ export default function App() {
           pointerEvents: "none",
         }}
       />
-    </div>
+
+      {/* Innhold for aktiv side */}
+      <div style={{ position: "relative", zIndex: 10 }}>
+        {page === "home" && (
+          <div
+            style={{
+              height: "80vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                width: "420px",
+                opacity: 0.1,
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+        )}
+        {page === "Triatlon" && <Triatlon />}
+        {page === "Akvatlon" && <Akvatlon />}
+        {page === "Svømming" && <Svømming />}
+        {page === "Løping" && <Løping />}
+        {page === "Deltakermanual" && <Deltakermanual />}
+        {page === "Løypeprofiler" && <Løypeprofiler />}
+        {page === "FAQ" && <FAQ />}
+        {page === "Om oss" && <OmOss />}
+      </div>
+
   );
 }
 
-function Navbar({ racesOpen, setRacesOpen }) {
+function Navbar({ racesOpen, setRacesOpen, setPage }) {
   return (
     <nav
       style={{
@@ -150,7 +189,11 @@ function Navbar({ racesOpen, setRacesOpen }) {
       >
         <li
           style={{ cursor: "pointer", position: "relative" }}
-          onClick={() => setRacesOpen(!racesOpen)}
+onClick={() => {
+  setPage(r);
+  setRacesOpen(false);
+}}
+
         >
           Races ▾
           {racesOpen && (
@@ -184,10 +227,18 @@ function Navbar({ racesOpen, setRacesOpen }) {
             </ul>
           )}
         </li>
-        <li style={{ cursor: "pointer" }}>Deltakermanual</li>
-        <li style={{ cursor: "pointer" }}>Løypeprofiler</li>
-        <li style={{ cursor: "pointer" }}>FAQ</li>
-        <li style={{ cursor: "pointer" }}>Om oss</li>
+  <li style={{ cursor: "pointer" }} onClick={() => setPage("Deltakermanual")}>
+  Deltakermanual
+</li>
+<li style={{ cursor: "pointer" }} onClick={() => setPage("Løypeprofiler")}>
+  Løypeprofiler
+</li>
+<li style={{ cursor: "pointer" }} onClick={() => setPage("FAQ")}>
+  FAQ
+</li>
+<li style={{ cursor: "pointer" }} onClick={() => setPage("Om oss")}>
+  Om oss
+</li>
       </ul>
     </nav>
   );
