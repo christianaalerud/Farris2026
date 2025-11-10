@@ -137,8 +137,8 @@ export default function App() {
       </div>
     </div>
   );
-}
-
+} }
+        
 // ---------- NAVBAR ----------
 function Navbar({ racesOpen, setRacesOpen }) {
   return (
