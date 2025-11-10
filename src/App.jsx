@@ -11,7 +11,6 @@ import OmOss from "./pages/OmOss.jsx";
 import Pamelding from "./pages/Pamelding.jsx";
 import InfoBar from "./pages/InfoBar";
 
-
 const logo = "/logo2.png";
 
 export default function App() {
@@ -119,94 +118,92 @@ export default function App() {
         setPage={setPage}
       />
 
-<img
-  src={logo}
-  alt="Background logo"
-  style={{
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: "60vw",
-    maxWidth: "800px",
-    opacity: 0.1,
-    pointerEvents: "none",
-  }}
-/>
+      <img
+        src={logo}
+        alt="Background logo"
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "60vw",
+          maxWidth: "800px",
+          opacity: 0.1,
+          pointerEvents: "none",
+        }}
+      />
 
-     <InfoBar />  
+      <InfoBar />
 
       <div style={{ position: "relative", zIndex: 10 }}>
- {page === "home" && (
-  <div
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "flex-start",
-      maxWidth: "1200px",
-      margin: "80px auto",
-      padding: "0 20px",
-      position: "relative",
-      zIndex: 10,
-    }}
-  >
-    {/* VENSTRE SIDE – TEKST */}
-    <div style={{ flex: "1 1 60%", paddingRight: "40px" }}>
-      <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>
-        Velkommen til Farris Triatlon 2026!
-      </h1>
-      <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
-       Farris Triatlon er et lavterskelarrangement for deg som liker frisk luft, 
-       fine folk og en utfordring du kan skryte av resten av året. Her får du nesten 
-       olympiske distanser, men med lokal sjarm og null krav om toppform.
+        {page === "home" && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+              maxWidth: "1200px",
+              margin: "80px auto",
+              padding: "0 20px",
+              position: "relative",
+              zIndex: 10,
+            }}
+          >
+            {/* VENSTRE SIDE – TEKST */}
+            <div style={{ flex: "1 1 60%", paddingRight: "40px" }}>
+              <h1 style={{ fontSize: "48px", marginBottom: "20px" }}>
+                Velkommen til Farris Triatlon 2026!
+              </h1>
+              <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
+                Farris Triatlon er et lavterskelarrangement for deg som liker frisk luft, 
+                fine folk og en utfordring du kan skryte av resten av året. Her får du nesten 
+                olympiske distanser, men med lokal sjarm og null krav om toppform.
+              </p>
+              <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
+                Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet. 
+                Ingen bølger, men kanskje en gjedde som lurer på hva du driver med.
+                Deretter venter omtrent 40 km på sykkel gjennom Oklungen, Langangen og Bjørkedalen. 
+                Det blir asfalt, svinger, motbakker og god anledning til å snakke litt høyt med seg selv. 
+                Til slutt runder vi av med litt over 10 km løping på asfalt og skogsvei – akkurat passe 
+                langt til at du rekker å angre, men ikke lenge nok til at du gir opp.
+                Du kan melde deg på én, to eller alle tre disipliner. Her er det plass til både 
+                deg som trener jevnt og deg som tenker "hvor vanskelig kan det være?"
+              </p>
+              <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
+                Farris Triatlon handler om å stille opp, kjenne på mestringen og ha det skikkelig gøy underveis 
+                uansett tempo, form eller erfaring. Det blir selvfølgelig utdeling av medaljer og 
+                finisher t-skjorte til alle som fullfører.
+              </p>
+            </div>
 
-      </p>
-      <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
-        Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet. 
-        Ingen bølger, men kanskje en gjedde som lurer på hva du driver med.
-        Deretter venter omtrent 40 km på sykkel gjennom Oklungen, Langangen og Bjørkedalen. 
-        Det blir asfalt, svinger, motbakker og god anledning til å snakke litt høyt med seg selv. 
-        Til slutt runder vi av med litt over 10 km løping på asfalt og skogsvei, akkurat passe 
-        langt til at du rekker å angre, men ikke lenge nok til at du gir opp.
-        Du kan melde deg på én, to eller alle tre disipliner. Her er det plass til både 
-        deg som trener jevnt og deg som tenker "hvor vanskelig kan det være?"
-   </p>
-  <p style={{ fontSize: "18px", lineHeight: "1.6", color: "#333" }}>
-        Farris Triatlon handler om å stille opp, kjenne på mestringen og ha det skikkelig gøy underveis 
-        uansett tempo, form eller erfaring. Det blir selvfølgelig utdeling av medaljer og 
-        finisher t-skjorte til alle som fullfører.
-      </p>
-    </div>
+            {/* HØYRE SIDE – BILDER */}
+            <div
+              style={{
+                flex: "1 1 35%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              <img
+                src="/images/triatlon1.jpg"
+                alt="Triatlonbilde 1"
+                style={{ width: "100%", borderRadius: "12px" }}
+              />
+              <img
+                src="/images/triatlon2.jpg"
+                alt="Triatlonbilde 2"
+                style={{ width: "100%", borderRadius: "12px" }}
+              />
+              <img
+                src="/images/triatlon3.jpg"
+                alt="Triatlonbilde 3"
+                style={{ width: "100%", borderRadius: "12px" }}
+              />
+            </div>
+          </div>
+        )}
 
-    {/* HØYRE SIDE – BILDER */}
-    <div
-      style={{
-        flex: "1 1 35%",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-      }}
-    >
-      <img
-        src="/images/triatlon1.jpg"
-        alt="Triatlonbilde 1"
-        style={{ width: "100%", borderRadius: "12px" }}
-      />
-      <img
-        src="/images/triatlon2.jpg"
-        alt="Triatlonbilde 2"
-        style={{ width: "100%", borderRadius: "12px" }}
-      />
-      <img
-        src="/images/triatlon3.jpg"
-        alt="Triatlonbilde 3"
-        style={{ width: "100%", borderRadius: "12px" }}
-      />
-    </div>
-  </div>
-));
-
-      
         {page === "Triatlon" && <Triatlon />}
         {page === "Akvatlon" && <Akvatlon />}
         {page === "Svømming" && <Svømming />}
@@ -216,8 +213,7 @@ export default function App() {
         {page === "FAQ" && <FAQ />}
         {page === "Om oss" && <OmOss />}
         {page === "Påmelding" && <Pamelding />}
-
-
+      </div>
     </div>
   );
 }
@@ -246,8 +242,8 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
         }}
       >
         <li style={{ cursor: "pointer" }} onClick={() => setPage("home")}>
-  Hjem
-</li>
+          Hjem
+        </li>
         <li
           style={{ cursor: "pointer", position: "relative" }}
           onClick={() => setRacesOpen(!racesOpen)}
@@ -301,8 +297,8 @@ function Navbar({ racesOpen, setRacesOpen, setPage }) {
           Om oss
         </li>
         <li style={{ cursor: "pointer" }} onClick={() => setPage("Påmelding")}>
-  Påmelding
-</li>
+          Påmelding
+        </li>
       </ul>
     </nav>
   );
