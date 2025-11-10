@@ -1,5 +1,5 @@
 import { useState } from "react";
-import logo from "./assets/logo2.png";
+import logo from "/logo2.png";
 
 export default function App() {
   const [accessGranted, setAccessGranted] = useState(false);
