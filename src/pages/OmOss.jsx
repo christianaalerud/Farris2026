@@ -1,4 +1,4 @@
-export default function Om Oss() {
+export default function OmOss() {
   return (
     <div style={{ padding: "60px 20px", textAlign: "center" }}>
       <h2>Om Oss</h2>
