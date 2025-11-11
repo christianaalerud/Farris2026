@@ -52,12 +52,20 @@ function Flip({ value, label }) {
   return (
     <div className="flipbox">
       <div className="card">
+        {/* statisk top og bottom */}
         <div className="top">{prevFormatted}</div>
         <div className="bottom">{valFormatted}</div>
 
-        <div className={`flap ${flipping ? "flip" : ""}`}>
+        {/* øvre klaff (flipper ned) */}
+        <div className={`flap upper ${flipping ? "flip" : ""}`}>
           <div className="front">{prevFormatted}</div>
           <div className="back">{valFormatted}</div>
+        </div>
+
+        {/* nedre klaff (dukker opp etterpå) */}
+        <div className={`flap lower ${flipping ? "flip" : ""}`}>
+          <div className="front">{valFormatted}</div>
+          <div className="back">{prevFormatted}</div>
         </div>
       </div>
       <span className="label">{label}</span>
