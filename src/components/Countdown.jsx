@@ -17,8 +17,8 @@ export default function Countdown() {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => setTime(getTime()), 1000);
-    return () => clearInterval(timer);
+    const t = setInterval(() => setTime(getTime()), 1000);
+    return () => clearInterval(t);
   }, []);
 
   return (
@@ -52,20 +52,13 @@ function Flip({ value, label }) {
   return (
     <div className="flipbox">
       <div className="card">
-        {/* statisk top og bottom */}
         <div className="top">{prevFormatted}</div>
         <div className="bottom">{valFormatted}</div>
 
-        {/* øvre klaff (flipper ned) */}
-        <div className={`flap upper ${flipping ? "flip" : ""}`}>
+        {/* øvre klaff */}
+        <div className={`flap top-flap ${flipping ? "flip" : ""}`}>
           <div className="front">{prevFormatted}</div>
           <div className="back">{valFormatted}</div>
-        </div>
-
-        {/* nedre klaff (dukker opp etterpå) */}
-        <div className={`flap lower ${flipping ? "flip" : ""}`}>
-          <div className="front">{valFormatted}</div>
-          <div className="back">{prevFormatted}</div>
         </div>
       </div>
       <span className="label">{label}</span>
