@@ -71,6 +71,7 @@ export default function App() {
     alignItems: "center",
     gap: "40px",
     marginTop: "40px",
+    marginLeft: "60px",
     flexWrap: "wrap",
   }}
 >
