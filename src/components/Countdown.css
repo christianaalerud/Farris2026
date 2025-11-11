@@ -1,73 +1,61 @@
 .flipclock {
   display: flex;
   align-items: center;
-  gap: 16px;
-  perspective: 800px;
+  gap: 14px;
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-.flip-unit {
+/* En enhet (dager, timer osv.) */
+.flipbox {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.flip-card {
-  position: relative;
+/* Selve boksen */
+.flip {
   width: 72px;
-  height: 72px;
+  height: 70px;
+  background: #fff;
   border: 2px solid #111;
   border-radius: 10px;
-  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Øverste halvdel som faktisk flipper */
-.card-upper {
+/* Øvre og nedre halvdel */
+.flip-top,
+.flip-bottom {
   position: absolute;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  background: #fff;
+}
+
+.flip-top {
   top: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
-  transform-origin: bottom;
-  overflow: hidden;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
 }
 
-.card-lower {
-  position: absolute;
+.flip-bottom {
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50%;
   background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: 700;
-  color: #111;
 }
 
-/* Tallet inni halve kortet */
-.half {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  font-size: 26px;
-  font-weight: 700;
-  color: #111;
+/* Effekt: kun øverste delen bretter seg ned */
+.flip.animate .flip-top {
+  animation: flap 0.35s ease-in;
+  transform-origin: bottom;
 }
 
-/* Overgangsanimasjon – kun øvre flapp */
-.flipping .card-upper {
-  animation: flipDown 0.6s ease-in forwards;
-}
-
-@keyframes flipDown {
+@keyframes flap {
   0% {
     transform: rotateX(0);
   }
@@ -76,7 +64,8 @@
   }
 }
 
-.label {
+/* Label under boksen */
+.flip-label {
   margin-top: 6px;
   font-size: 10px;
   font-weight: 600;
@@ -86,12 +75,12 @@
 
 /* Mobil */
 @media (max-width: 600px) {
-  .flip-card {
+  .flip {
     width: 56px;
     height: 56px;
   }
-  .half,
-  .card-lower {
+  .flip-top,
+  .flip-bottom {
     font-size: 20px;
   }
 }
