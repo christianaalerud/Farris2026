@@ -2,48 +2,53 @@ import React, { useEffect, useState } from "react";
 import "./Countdown.css";
 
 export default function Countdown() {
-  const targetDate = new Date("2026-06-20T09:00:00").getTime();
-  const [timeLeft, setTimeLeft] = useState({
-    days: "000",
-    hours: "00",
-    minutes: "00",
-    seconds: "00",
+  const target = new Date("2026-06-20T09:00:00").getTime();
+
+  const [time, setTime] = useState({
+    d: "000",
+    h: "00",
+    m: "00",
+    s: "00",
   });
 
   useEffect(() => {
     const update = () => {
-      const now = new Date().getTime();
-      const diff = Math.max(0, targetDate - now);
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      setTimeLeft({
-        days: d.toString().padStart(3, "0"),
-        hours: h.toString().padStart(2, "0"),
-        minutes: m.toString().padStart(2, "0"),
-        seconds: s.toString().padStart(2, "0"),
+      const now = Date.now();
+      const diff = Math.max(target - now, 0);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      setTime({
+        d: days.toString().padStart(3, "0"),
+        h: hours.toString().padStart(2, "0"),
+        m: minutes.toString().padStart(2, "0"),
+        s: seconds.toString().padStart(2, "0"),
       });
     };
+
     update();
     const t = setInterval(update, 1000);
     return () => clearInterval(t);
-  }, [targetDate]);
+  }, [target]);
 
   const blocks = [
-    { label: "DAGER", value: timeLeft.days },
-    { label: "TIMER", value: timeLeft.hours },
-    { label: "MIN", value: timeLeft.minutes },
-    { label: "SEK", value: timeLeft.seconds },
+    { label: "DAGER", val: time.d },
+    { label: "TIMER", val: time.h },
+    { label: "MIN", val: time.m },
+    { label: "SEK", val: time.s },
   ];
 
   return (
     <div className="flipclock">
       {blocks.map((b) => (
         <div className="flip-unit" key={b.label}>
-          <div className="flip-card">
-            <div className="top">{b.value}</div>
-            <div className="bottom">{b.value}</div>
+          {/* key på flip-card gjør at den animerer kun når verdien endres */}
+          <div className="flip-card" key={b.val}>
+            <div className="top">{b.val}</div>
+            <div className="bottom">{b.val}</div>
           </div>
           <span className="label">{b.label}</span>
         </div>
