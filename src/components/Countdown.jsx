@@ -30,33 +30,33 @@ export default function Countdown() {
   );
 }
 
-/* Enkel komponent for hver enhet */
+/* Én boks per tidsenhet */
 function FlipUnit({ value, label, pad }) {
-  const [current, setCurrent] = useState(value.toString().padStart(pad, "0"));
-  const [next, setNext] = useState(value.toString().padStart(pad, "0"));
-  const [flipping, setFlipping] = useState(false);
+  const [prev, setPrev] = useState(value);
+  const [flip, setFlip] = useState(false);
 
   useEffect(() => {
-    const newVal = value.toString().padStart(pad, "0");
-    if (newVal !== current) {
-      setNext(newVal);
-      setFlipping(true);
-      const timer = setTimeout(() => {
-        setFlipping(false);
-        setCurrent(newVal);
+    if (value !== prev) {
+      setFlip(true);
+      const t = setTimeout(() => {
+        setFlip(false);
+        setPrev(value);
       }, 600);
-      return () => clearTimeout(timer);
+      return () => clearTimeout(t);
     }
-  }, [value, pad, current]);
+  }, [value, prev]);
+
+  const current = prev.toString().padStart(pad, "0");
+  const next = value.toString().padStart(pad, "0");
 
   return (
     <div className="flip-unit">
-      <div className={`flip-card ${flipping ? "flipping" : ""}`}>
-        <div className="upper">
-          <div className="front">{current}</div>
-          <div className="back">{next}</div>
+      <div className={`flip-card ${flip ? "flipping" : ""}`}>
+        <div className="card-upper">
+          <div className="half top">{current}</div>
+          <div className="half bottom">{next}</div>
         </div>
-        <div className="lower">{next}</div>
+        <div className="card-lower">{next}</div>
       </div>
       <span className="label">{label}</span>
     </div>
