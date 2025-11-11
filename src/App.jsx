@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Countdown from "./components/Countdown.jsx";
 
+
 import Triatlon from "./pages/Triatlon.jsx";
 import Akvatlon from "./pages/Akvatlon.jsx";
 import Svømming from "./pages/Svømming.jsx";
@@ -62,10 +63,12 @@ export default function App() {
         {page === "home" && (
           <>
             {/* LOGO UNDER INFOBAR */}
-            <div className="logo-top" onClick={() => setPage("home")}>
-              <img src={logo} alt="Farris Triatlon logo" />
-            </div>
-            <Countdown />
+         <div className="hero-header">
+  <div className="logo-top" onClick={() => setPage("home")}>
+    <img src={logo} alt="Farris Triatlon logo" />
+  </div>
+  <Countdown />
+</div>
 
 
             {/* HOVEDSEKSJON – RESPONSIV */}
