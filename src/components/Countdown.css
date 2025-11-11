@@ -1,112 +1,97 @@
 .flipclock {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   perspective: 800px;
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-/* hver tidsenhet */
 .flip-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* hele kortet */
 .flip-card {
   position: relative;
   width: 72px;
-  height: 70px;
-  background: #fff;
+  height: 72px;
   border: 2px solid #111;
   border-radius: 10px;
+  background: #fff;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* øvre “flapp” */
-.upper {
+/* Øverste halvdel som faktisk flipper */
+.card-upper {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 50%;
-  overflow: hidden;
   transform-origin: bottom;
-  transform: rotateX(0deg);
+  overflow: hidden;
   background: #fff;
   border-bottom: 1px solid #ddd;
 }
 
-.front,
-.back {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
-  color: #111;
-}
-
-.back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #f5f5f5;
-  transform: rotateX(180deg);
-}
-
-/* nederste halvdel */
-.lower {
+.card-lower {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 50%;
+  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f5f5;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: #111;
 }
 
-/* flip-animasjon: bare den øvre flappen brettes ned */
-.flip-card.flipping .upper {
+/* Tallet inni halve kortet */
+.half {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Overgangsanimasjon – kun øvre flapp */
+.flipping .card-upper {
   animation: flipDown 0.6s ease-in forwards;
 }
 
 @keyframes flipDown {
   0% {
-    transform: rotateX(0deg);
+    transform: rotateX(0);
   }
   100% {
     transform: rotateX(-180deg);
   }
 }
 
-/* label under */
 .label {
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 10px;
   font-weight: 600;
-  color: #333;
   letter-spacing: 1px;
+  color: #333;
 }
 
-/* responsivt */
+/* Mobil */
 @media (max-width: 600px) {
   .flip-card {
     width: 56px;
     height: 56px;
   }
-  .front,
-  .back,
-  .lower {
-    font-size: 18px;
+  .half,
+  .card-lower {
+    font-size: 20px;
   }
 }
