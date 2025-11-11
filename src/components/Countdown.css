@@ -1,27 +1,30 @@
-.countdown {
+/* Horisontal rad ved siden av logoen */
+.countdown-wrapper {
   display: flex;
   align-items: center;
-  gap: 16px;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  justify-content: flex-start;
+  gap: 20px;
+  perspective: 1000px;
+  margin-left: 40px;
 }
 
-/* Boksen */
-.flipbox {
+/* Hver boks */
+.flip-card-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 
-.flip {
+/* Selve boksen */
+.flip-card {
   position: relative;
   width: 80px;
   height: 80px;
-  background: #fff;
-  border: 2px solid #111;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  border: 2px solid #111;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Øvre og nedre del */
@@ -33,16 +36,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   color: #111;
+  backface-visibility: hidden;
 }
 
 .top {
   top: 0;
   background: #fff;
   border-bottom: 1px solid #ccc;
-  transform-origin: bottom;
 }
 
 .bottom {
@@ -50,12 +53,46 @@
   background: #f5f5f5;
 }
 
-/* Flip kun øvre halvdel */
-.flip.animate .top {
-  animation: flipTop 0.6s ease-in-out forwards;
+/* Flip-animasjon: kun øverste halvdel beveger seg */
+.flip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  transform-origin: bottom;
+  transform-style: preserve-3d;
 }
 
-@keyframes flipTop {
+.flip-front,
+.flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111;
+  backface-visibility: hidden;
+}
+
+.flip-front {
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.flip-back {
+  background: #f5f5f5;
+  transform: rotateX(180deg);
+}
+
+.flipping .flip {
+  animation: flipDown 0.6s ease-in-out forwards;
+}
+
+@keyframes flipDown {
   0% {
     transform: rotateX(0deg);
   }
@@ -64,23 +101,26 @@
   }
 }
 
-/* Label */
+/* Label under */
 .label {
   margin-top: 6px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   color: #333;
   letter-spacing: 1px;
 }
 
-/* Mobiljustering */
+/* Responsivt */
 @media (max-width: 600px) {
-  .flip {
+  .flip-card {
     width: 60px;
     height: 60px;
   }
+
   .top,
-  .bottom {
+  .bottom,
+  .flip-front,
+  .flip-back {
     font-size: 22px;
   }
 }
