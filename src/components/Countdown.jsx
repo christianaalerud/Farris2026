@@ -1,56 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Countdown.css";
 
 export default function Countdown() {
-  const target = new Date("2026-06-20T09:00:00").getTime();
-  const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
+  const targetDate = new Date("2026-06-20T09:00:00").getTime();
+  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const update = () => {
       const now = Date.now();
-      const diff = Math.max(target - now, 0);
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const m = Math.floor((diff / (1000 * 60)) % 60);
-      const s = Math.floor((diff / 1000) % 60);
-      setTime({ d, h, m, s });
+      const diff = Math.max(targetDate - now, 0);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      setTime({ days, hours, minutes, seconds });
     };
     update();
-    const t = setInterval(update, 1000);
-    return () => clearInterval(t);
-  }, [target]);
+    const timer = setInterval(update, 1000);
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   return (
-    <div className="countdown">
-      <FlipBox value={time.d} label="DAGER" pad={3} />
-      <FlipBox value={time.h} label="TIMER" pad={2} />
-      <FlipBox value={time.m} label="MIN" pad={2} />
-      <FlipBox value={time.s} label="SEK" pad={2} />
+    <div className="countdown-wrapper">
+      <FlipCard value={time.days} label="DAGER" />
+      <FlipCard value={time.hours} label="TIMER" />
+      <FlipCard value={time.minutes} label="MIN" />
+      <FlipCard value={time.seconds} label="SEK" />
     </div>
   );
 }
 
-function FlipBox({ value, label, pad }) {
-  const formatted = value.toString().padStart(pad, "0");
-  const [prev, setPrev] = useState(formatted);
-  const [flip, setFlip] = useState(false);
+function FlipCard({ value, label }) {
+  const [previousValue, setPreviousValue] = useState(value);
+  const [flipping, setFlipping] = useState(false);
 
   useEffect(() => {
-    if (formatted !== prev) {
-      setFlip(true);
-      const timer = setTimeout(() => {
-        setFlip(false);
-        setPrev(formatted);
+    if (value !== previousValue) {
+      setFlipping(true);
+      const timeout = setTimeout(() => {
+        setFlipping(false);
+        setPreviousValue(value);
       }, 600);
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timeout);
     }
-  }, [formatted, prev]);
+  }, [value, previousValue]);
 
   return (
-    <div className="flipbox">
-      <div className={`flip ${flip ? "animate" : ""}`}>
-        <div className="top">{prev}</div>
-        <div className="bottom">{formatted}</div>
+    <div className="flip-card-container">
+      <div className={`flip-card ${flipping ? "flipping" : ""}`}>
+        <div className="top">{previousValue.toString().padStart(2, "0")}</div>
+        <div className="bottom">{value.toString().padStart(2, "0")}</div>
+        <div className="flip">
+          <div className="flip-front">{previousValue.toString().padStart(2, "0")}</div>
+          <div className="flip-back">{value.toString().padStart(2, "0")}</div>
+        </div>
       </div>
       <div className="label">{label}</div>
     </div>
