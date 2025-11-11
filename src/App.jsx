@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import Countdown from "./components/Countdown.jsx";
 
 import Triatlon from "./pages/Triatlon.jsx";
 import Akvatlon from "./pages/Akvatlon.jsx";
@@ -64,6 +65,8 @@ export default function App() {
             <div className="logo-top" onClick={() => setPage("home")}>
               <img src={logo} alt="Farris Triatlon logo" />
             </div>
+            <Countdown />
+
 
             {/* HOVEDSEKSJON – RESPONSIV */}
             <div className="home-container">
