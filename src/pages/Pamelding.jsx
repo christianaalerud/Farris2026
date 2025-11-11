@@ -1,133 +1,121 @@
 import { useState } from "react";
 
 export default function Pamelding() {
+  const [enteredPassword, setEnteredPassword] = useState("");
+  const [accessGranted, setAccessGranted] = useState(false);
+  const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const correctPassword = "yousonofabitchimin"; // <- du kan endre dette selv
+
+  const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
-
-    // Send dataen trygt til Formspree
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: {
-        Accept: "application/json",
-      },
-    });
-
-    if (response.ok) {
-      setSubmitted(true);
-      form.reset();
+    if (enteredPassword === correctPassword) {
+      setAccessGranted(true);
     } else {
-      alert("Noe gikk galt, prøv igjen senere.");
+      alert("Feil passord");
     }
   };
 
-  if (submitted) {
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    // Send e-post til Formspree (enkelt)
+    fetch("https://formspree.io/f/xanaynqo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    }).then(() => setSubmitted(true));
+  };
+
+  // Hvis riktig passord:
+  if (accessGranted) {
     return (
-      <div
-        style={{
-          padding: "80px 20px",
-          textAlign: "center",
-          color: "#222",
-        }}
-      >
-        <h2>Takk for påmeldingen!</h2>
+      <div style={{ padding: "40px", textAlign: "center" }}>
+        <h2>Påmelding åpnet</h2>
         <p>
-          Vi har mottatt informasjonen din, og du vil snart få en bekreftelse på
-          e-post.
+          Her kan du fylle ut påmeldingsskjemaet (du kan legge inn Google Form,
+          Stripe-betaling eller lignende her).
         </p>
-        <p>Vi gleder oss til å se deg ved Farris Triatlon!</p>
       </div>
     );
   }
 
+  // Ellers: vis låst side
   return (
-    <div
-      style={{
-        padding: "60px 20px",
-        maxWidth: "600px",
-        margin: "0 auto",
-        textAlign: "center",
-      }}
-    >
-      <h2>Påmelding</h2>
+    <div style={{ maxWidth: "500px", margin: "60px auto", textAlign: "center" }}>
+      <h2>Invites only</h2>
       <p>
-        Meld deg på Farris Triatlon her! Informasjonen sendes trygt via
-        Formspree, og du får bekreftelse på e-post.
+        Dette arrangementet er for inviterte deltakere. Skriv inn e-posten din for å
+        motta passord og bli lagt til på nyhetsbrevlisten.
       </p>
 
-      <form
-        onSubmit={handleSubmit}
-        action="https://formspree.io/f/mblqrnav"
-        method="POST"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-          marginTop: "30px",
-        }}
-      >
+      {submitted ? (
+        <p>Takk! Du er registrert. Du vil få passordet tilsendt når påmelding åpner.</p>
+      ) : (
+        <form onSubmit={handleEmailSubmit} style={{ marginTop: "20px" }}>
+          <input
+            type="email"
+            placeholder="Din e-postadresse"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{
+              padding: "10px",
+              fontSize: "16px",
+              width: "100%",
+              maxWidth: "400px",
+              border: "1px solid #ccc",
+              borderRadius: "6px",
+              marginBottom: "12px",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              padding: "10px 20px",
+              background: "#222",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+            }}
+          >
+            Send
+          </button>
+        </form>
+      )}
+
+      <hr style={{ margin: "40px 0" }} />
+
+      <form onSubmit={handlePasswordSubmit}>
+        <p>Allerede fått passord? Logg inn her:</p>
         <input
-          type="text"
-          name="navn"
-          placeholder="Fullt navn"
-          required
-          style={{ padding: "10px", fontSize: "16px" }}
-        />
-        <input
-          type="email"
-          name="epost"
-          placeholder="E-postadresse"
-          required
-          style={{ padding: "10px", fontSize: "16px" }}
-        />
-        <input
-          type="tel"
-          name="telefon"
-          placeholder="Telefonnummer (valgfritt)"
-          style={{ padding: "10px", fontSize: "16px" }}
-        />
-        <select
-          name="konkurranse"
-          required
+          type="password"
+          placeholder="Skriv passord"
+          value={enteredPassword}
+          onChange={(e) => setEnteredPassword(e.target.value)}
           style={{
             padding: "10px",
             fontSize: "16px",
-            background: "white",
+            width: "100%",
+            maxWidth: "400px",
             border: "1px solid #ccc",
+            borderRadius: "6px",
+            marginBottom: "12px",
           }}
-        >
-          <option value="">Velg konkurranse</option>
-          <option value="Triatlon">Triatlon</option>
-          <option value="Akvatlon">Akvatlon</option>
-          <option value="Svømming">Svømming</option>
-          <option value="Løping">Løping</option>
-        </select>
-        <textarea
-          name="melding"
-          placeholder="Evt. melding, klasse eller annen informasjon"
-          rows="4"
-          style={{ padding: "10px", fontSize: "16px" }}
         />
-        <label style={{ fontSize: "14px", textAlign: "left" }}>
-          <input type="checkbox" required /> Jeg samtykker til at mine
-          opplysninger brukes for påmelding til Farris Triatlon.
-        </label>
         <button
           type="submit"
           style={{
-            background: "black",
+            padding: "10px 20px",
+            background: "#0077cc",
             color: "white",
-            padding: "12px",
             border: "none",
+            borderRadius: "6px",
             cursor: "pointer",
-            fontSize: "16px",
           }}
         >
-          Send påmelding
+          Gå videre
         </button>
       </form>
     </div>
