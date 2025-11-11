@@ -167,14 +167,11 @@ nav li {
 .hero-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 30px; /* Avstand mellom logo og teller */
-  padding: 20px 40px 0 40px;
-  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px 60px 0 60px;
 }
 
 .logo-top img {
-  height: 160px;
+  height: 190px;
   width: auto;
-  cursor: pointer;
 }
