@@ -19,39 +19,39 @@ export default function Countdown() {
   }, [targetDate]);
 
   return (
-    <div className="flipclock">
-      <FlipBox value={time.d} label="DAGER" pad={3} />
-      <FlipBox value={time.h} label="TIMER" pad={2} />
-      <FlipBox value={time.m} label="MIN" pad={2} />
-      <FlipBox value={time.s} label="SEK" pad={2} />
+    <div className="countdown">
+      <TimerBox value={time.d} label="DAGER" pad={3} />
+      <TimerBox value={time.h} label="TIMER" pad={2} />
+      <TimerBox value={time.m} label="MIN" pad={2} />
+      <TimerBox value={time.s} label="SEK" pad={2} />
     </div>
   );
 }
 
-function FlipBox({ value, label, pad }) {
-  const [display, setDisplay] = useState(value);
-  const [flipping, setFlipping] = useState(false);
+function TimerBox({ value, label, pad }) {
+  const [prev, setPrev] = useState(value);
+  const [flip, setFlip] = useState(false);
 
   useEffect(() => {
-    if (value !== display) {
-      setFlipping(true);
+    if (value !== prev) {
+      setFlip(true);
       const t = setTimeout(() => {
-        setDisplay(value);
-        setFlipping(false);
-      }, 350);
+        setFlip(false);
+        setPrev(value);
+      }, 300);
       return () => clearTimeout(t);
     }
-  }, [value, display]);
+  }, [value, prev]);
 
   const formatted = value.toString().padStart(pad, "0");
 
   return (
-    <div className="flipbox">
-      <div className={`flip ${flipping ? "animate" : ""}`}>
-        <div className="flip-top">{formatted}</div>
-        <div className="flip-bottom">{formatted}</div>
+    <div className="timer-box">
+      <div className={`timer-top ${flip ? "animate" : ""}`}>
+        {formatted}
       </div>
-      <span className="flip-label">{label}</span>
+      <div className="timer-bottom">{formatted}</div>
+      <div className="timer-label">{label}</div>
     </div>
   );
 }
