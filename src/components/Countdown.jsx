@@ -1,61 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Countdown.css";
 
 export default function Countdown() {
-  const targetDate = new Date("2026-06-20T09:00:00").getTime();
-  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const target = new Date("2026-06-20T09:00:00").getTime();
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+
+  function getTimeRemaining() {
+    const now = Date.now();
+    const diff = Math.max(target - now, 0);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+    return { days, hours, minutes, seconds };
+  }
 
   useEffect(() => {
-    const update = () => {
-      const now = Date.now();
-      const diff = Math.max(targetDate - now, 0);
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      setTime({ days, hours, minutes, seconds });
-    };
-    update();
-    const timer = setInterval(update, 1000);
-    return () => clearInterval(timer);
-  }, [targetDate]);
+    const interval = setInterval(() => setTimeLeft(getTimeRemaining()), 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="countdown-wrapper">
-      <FlipCard value={time.days} label="DAGER" />
-      <FlipCard value={time.hours} label="TIMER" />
-      <FlipCard value={time.minutes} label="MIN" />
-      <FlipCard value={time.seconds} label="SEK" />
+    <div className="flipclock">
+      <FlipCard value={timeLeft.days} label="DAGER" />
+      <FlipCard value={timeLeft.hours} label="TIMER" />
+      <FlipCard value={timeLeft.minutes} label="MIN" />
+      <FlipCard value={timeLeft.seconds} label="SEK" />
     </div>
   );
 }
 
 function FlipCard({ value, label }) {
-  const [previousValue, setPreviousValue] = useState(value);
-  const [flipping, setFlipping] = useState(false);
+  const [current, setCurrent] = useState(value);
+  const [flip, setFlip] = useState(false);
 
   useEffect(() => {
-    if (value !== previousValue) {
-      setFlipping(true);
+    if (value !== current) {
+      setFlip(true);
       const timeout = setTimeout(() => {
-        setFlipping(false);
-        setPreviousValue(value);
+        setFlip(false);
+        setCurrent(value);
       }, 600);
       return () => clearTimeout(timeout);
     }
-  }, [value, previousValue]);
+  }, [value, current]);
 
   return (
-    <div className="flip-card-container">
-      <div className={`flip-card ${flipping ? "flipping" : ""}`}>
-        <div className="top">{previousValue.toString().padStart(2, "0")}</div>
-        <div className="bottom">{value.toString().padStart(2, "0")}</div>
-        <div className="flip">
-          <div className="flip-front">{previousValue.toString().padStart(2, "0")}</div>
-          <div className="flip-back">{value.toString().padStart(2, "0")}</div>
+    <div className="flipcard-container">
+      <div className={`flipcard ${flip ? "flip" : ""}`}>
+        <div className="upper">{current.toString().padStart(2, "0")}</div>
+        <div className="lower">{value.toString().padStart(2, "0")}</div>
+        <div className="flip-half">
+          <div className="front">{current.toString().padStart(2, "0")}</div>
+          <div className="back">{value.toString().padStart(2, "0")}</div>
         </div>
       </div>
-      <div className="label">{label}</div>
+      <span className="label">{label}</span>
     </div>
   );
 }
