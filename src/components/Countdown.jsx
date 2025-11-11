@@ -3,9 +3,9 @@ import "./Countdown.css";
 
 export default function Countdown() {
   const target = new Date("2026-06-20T09:00:00").getTime();
-  const [time, setTime] = useState(calc());
+  const [time, setTime] = useState(getTime());
 
-  function calc() {
+  function getTime() {
     const now = Date.now();
     const diff = Math.max(target - now, 0);
     return {
@@ -17,8 +17,8 @@ export default function Countdown() {
   }
 
   useEffect(() => {
-    const t = setInterval(() => setTime(calc()), 1000);
-    return () => clearInterval(t);
+    const timer = setInterval(() => setTime(getTime()), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -46,19 +46,18 @@ function Flip({ value, label }) {
     }
   }, [value, prev]);
 
-  const formattedPrev = prev.toString().padStart(2, "0");
-  const formattedVal = value.toString().padStart(2, "0");
+  const prevFormatted = prev.toString().padStart(2, "0");
+  const valFormatted = value.toString().padStart(2, "0");
 
   return (
     <div className="flipbox">
       <div className="card">
-        <div className="top">{formattedPrev}</div>
-        <div className="bottom">{formattedVal}</div>
+        <div className="top">{prevFormatted}</div>
+        <div className="bottom">{valFormatted}</div>
 
-        {/* klaff som bretter ned */}
         <div className={`flap ${flipping ? "flip" : ""}`}>
-          <div className="front">{formattedPrev}</div>
-          <div className="back">{formattedVal}</div>
+          <div className="front">{prevFormatted}</div>
+          <div className="back">{valFormatted}</div>
         </div>
       </div>
       <span className="label">{label}</span>
