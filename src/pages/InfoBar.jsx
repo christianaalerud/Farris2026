@@ -1,62 +1,78 @@
-import React from "react";
-import "./InfoBar.css";
+.info-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  padding: 20px 0;
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap; /* gjør at de brytes pent på små skjermer */
+}
 
-const InfoBar = () => {
-  return (
-    <div className="info-bar">
-      {/* Svøm */}
-      <div className="info-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="icon">
-          <circle cx="32" cy="32" r="30" fill="none" stroke="#222" strokeWidth="2" />
-          <path
-            d="M6 36c6-4 12 0 18 0s12-4 18-4 12 4 18 4"
-            stroke="#222"
-            strokeWidth="2"
-            fill="none"
-          />
-          <path
-            d="M22 22l4-4m-2 4v-6m12 6h8m-20 0h4"
-            stroke="#222"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
-        <div>
-          <div className="label">Svøm</div>
-          <div className="value">Innsjø</div>
-        </div>
-      </div>
+/* Hver seksjon (svøm / sykkel / løp) */
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
-      {/* Sykkel */}
-      <div className="info-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="icon">
-          <circle cx="32" cy="32" r="30" fill="none" stroke="#222" strokeWidth="2" />
-          <path
-            d="M10 40c6-8 12-6 18-2s12 8 18 2 12-8 18-2"
-            stroke="#222"
-            strokeWidth="2"
-            fill="none"
-          />
-        </svg>
-        <div>
-          <div className="label">Sykkel</div>
-          <div className="value">Kuppert</div>
-        </div>
-      </div>
+/* Ikonstørrelse */
+.icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
+}
 
-      {/* Løp */}
-      <div className="info-item">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="icon">
-          <circle cx="32" cy="32" r="30" fill="none" stroke="#222" strokeWidth="2" />
-          <line x1="10" y1="32" x2="54" y2="32" stroke="#222" strokeWidth="2" />
-        </svg>
-        <div>
-          <div className="label">Løp</div>
-          <div className="value">Relativt flatt</div>
-        </div>
-      </div>
-    </div>
-  );
-};
+/* Tekst under ikonene */
+.label {
+  font-weight: 600;
+  color: #111;
+  font-size: 16px;
+}
 
-export default InfoBar;
+.value {
+  color: #555;
+  font-size: 14px;
+}
+
+/* ---------- RESPONSIV ---------- */
+@media (max-width: 768px) {
+  .info-bar {
+    gap: 30px;
+    padding: 15px 0;
+  }
+
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .label {
+    font-size: 15px;
+  }
+
+  .value {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .info-bar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  .value {
+    font-size: 12px;
+  }
+}
