@@ -1,12 +1,13 @@
 .info-bar {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  padding: 10px 0;
-  background: white;
+  flex-direction: row;          /* ← ikonene ligger bortover */
+  justify-content: center;      /* sentrerer hele raden */
+  align-items: center;          /* sentrerer vertikalt */
+  gap: 40px;                    /* mellomrom mellom ikonene */
+  padding: 15px 0;
+  background-color: white;
   border-bottom: 1px solid #eee;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;            /* holder dem på én linje */
 }
 
 .info-item {
@@ -26,22 +27,31 @@
   font-weight: 600;
   color: #111;
   font-size: 14px;
+  line-height: 1.1;
 }
 
 .value {
   color: #555;
   font-size: 12px;
+  line-height: 1.1;
 }
 
-/* Mobiljustering */
+/* --- Mobiltilpasning --- */
 @media (max-width: 600px) {
+  .info-bar {
+    gap: 25px;
+    padding: 10px 0;
+  }
+
   .icon {
     width: 32px;
     height: 32px;
   }
+
   .label {
     font-size: 13px;
   }
+
   .value {
     font-size: 11px;
   }
