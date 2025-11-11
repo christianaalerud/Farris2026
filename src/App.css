@@ -163,3 +163,18 @@ nav li {
   width: auto;
   cursor: pointer;
 }
+
+.hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px; /* Avstand mellom logo og teller */
+  padding: 20px 40px 0 40px;
+  flex-wrap: wrap;
+}
+
+.logo-top img {
+  height: 160px;
+  width: auto;
+  cursor: pointer;
+}
