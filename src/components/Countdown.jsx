@@ -2,57 +2,63 @@ import React, { useEffect, useState } from "react";
 import "./Countdown.css";
 
 export default function Countdown() {
-  const target = new Date("2026-06-20T09:00:00").getTime();
-
-  const [time, setTime] = useState({
-    d: "000",
-    h: "00",
-    m: "00",
-    s: "00",
-  });
+  const targetDate = new Date("2026-06-20T09:00:00").getTime();
+  const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
   useEffect(() => {
     const update = () => {
       const now = Date.now();
-      const diff = Math.max(target - now, 0);
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      setTime({
-        d: days.toString().padStart(3, "0"),
-        h: hours.toString().padStart(2, "0"),
-        m: minutes.toString().padStart(2, "0"),
-        s: seconds.toString().padStart(2, "0"),
-      });
+      const diff = Math.max(targetDate - now, 0);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      setTime({ d, h, m, s });
     };
-
     update();
     const t = setInterval(update, 1000);
     return () => clearInterval(t);
-  }, [target]);
-
-  const blocks = [
-    { label: "DAGER", val: time.d },
-    { label: "TIMER", val: time.h },
-    { label: "MIN", val: time.m },
-    { label: "SEK", val: time.s },
-  ];
+  }, [targetDate]);
 
   return (
     <div className="flipclock">
-      {blocks.map((b) => (
-        <div className="flip-unit" key={b.label}>
-          {/* key på flip-card gjør at den animerer kun når verdien endres */}
-          <div className="flip-card" key={b.val}>
-            <div className="top">{b.val}</div>
-            <div className="bottom">{b.val}</div>
-          </div>
-          <span className="label">{b.label}</span>
+      <FlipUnit value={time.d} label="DAGER" pad={3} />
+      <FlipUnit value={time.h} label="TIMER" pad={2} />
+      <FlipUnit value={time.m} label="MIN" pad={2} />
+      <FlipUnit value={time.s} label="SEK" pad={2} />
+    </div>
+  );
+}
+
+/* Enkel komponent for hver enhet */
+function FlipUnit({ value, label, pad }) {
+  const [current, setCurrent] = useState(value.toString().padStart(pad, "0"));
+  const [next, setNext] = useState(value.toString().padStart(pad, "0"));
+  const [flipping, setFlipping] = useState(false);
+
+  useEffect(() => {
+    const newVal = value.toString().padStart(pad, "0");
+    if (newVal !== current) {
+      setNext(newVal);
+      setFlipping(true);
+      const timer = setTimeout(() => {
+        setFlipping(false);
+        setCurrent(newVal);
+      }, 600);
+      return () => clearTimeout(timer);
+    }
+  }, [value, pad, current]);
+
+  return (
+    <div className="flip-unit">
+      <div className={`flip-card ${flipping ? "flipping" : ""}`}>
+        <div className="upper">
+          <div className="front">{current}</div>
+          <div className="back">{next}</div>
         </div>
-      ))}
+        <div className="lower">{next}</div>
+      </div>
+      <span className="label">{label}</span>
     </div>
   );
 }
