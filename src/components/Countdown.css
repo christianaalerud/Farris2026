@@ -1,68 +1,87 @@
-.countdown-inline {
+.flipclock {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
-  height: 100%;
+  gap: 12px;
 }
 
-/* Enkelt, moderne utseende */
-.cd-box {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  background: #ffffff;
-  border: 2px solid #222;
+/* hver “boks” */
+.flip-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease;
 }
 
-.cd-box:hover {
-  transform: scale(1.05);
+/* tallboksen */
+.flip-card {
+  position: relative;
+  width: 70px;
+  height: 80px;
+  perspective: 600px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.cd-num {
-  font-size: 20px;
+/* top og bottom deler som flipper */
+.top,
+.bottom {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 32px;
   font-weight: 700;
-  line-height: 1;
+  backface-visibility: hidden;
 }
 
-.cd-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #555;
-  line-height: 1;
+.top {
+  background: #111;
+  top: 0;
+  border-bottom: 1px solid #333;
 }
 
-/* Subtil “puls” animasjon */
-@keyframes pulse {
+.bottom {
+  background: #000;
+  bottom: 0;
+  transform: rotateX(180deg);
+}
+
+/* animasjon */
+@keyframes flip {
   0% {
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
-  }
-  50% {
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    transform: rotateX(0);
   }
   100% {
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+    transform: rotateX(-180deg);
   }
 }
 
-/* Skaler ned på mobil */
+.flip-card {
+  animation: flip 1s ease-in-out infinite alternate;
+}
+
+.label {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #222;
+  letter-spacing: 1px;
+}
+
+/* responsivt */
 @media (max-width: 600px) {
-  .cd-box {
-    width: 42px;
-    height: 42px;
+  .flip-card {
+    width: 55px;
+    height: 60px;
   }
-  .cd-num {
-    font-size: 18px;
-  }
-  .cd-label {
-    font-size: 9px;
+  .top,
+  .bottom {
+    font-size: 24px;
   }
 }
