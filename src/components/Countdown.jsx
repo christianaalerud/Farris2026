@@ -6,7 +6,7 @@ export default function Countdown() {
   const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
   useEffect(() => {
-    const tick = () => {
+    const update = () => {
       const now = Date.now();
       const diff = Math.max(target - now, 0);
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -15,48 +15,44 @@ export default function Countdown() {
       const s = Math.floor((diff / 1000) % 60);
       setTime({ d, h, m, s });
     };
-    tick();
-    const t = setInterval(tick, 1000);
+    update();
+    const t = setInterval(update, 1000);
     return () => clearInterval(t);
   }, [target]);
 
   return (
-    <div className="flipclock">
-      <FlipUnit label="DAGER" value={time.d} pad={3} />
-      <FlipUnit label="TIMER" value={time.h} pad={2} />
-      <FlipUnit label="MIN" value={time.m} pad={2} />
-      <FlipUnit label="SEK" value={time.s} pad={2} />
+    <div className="countdown">
+      <FlipBox value={time.d} label="DAGER" pad={3} />
+      <FlipBox value={time.h} label="TIMER" pad={2} />
+      <FlipBox value={time.m} label="MIN" pad={2} />
+      <FlipBox value={time.s} label="SEK" pad={2} />
     </div>
   );
 }
 
-function FlipUnit({ label, value, pad }) {
+function FlipBox({ value, label, pad }) {
   const formatted = value.toString().padStart(pad, "0");
-  const [current, setCurrent] = useState(formatted);
-  const [flipping, setFlipping] = useState(false);
+  const [prev, setPrev] = useState(formatted);
+  const [flip, setFlip] = useState(false);
 
   useEffect(() => {
-    if (formatted !== current) {
-      setFlipping(true);
-      const t = setTimeout(() => {
-        setFlipping(false);
-        setCurrent(formatted);
+    if (formatted !== prev) {
+      setFlip(true);
+      const timer = setTimeout(() => {
+        setFlip(false);
+        setPrev(formatted);
       }, 600);
-      return () => clearTimeout(t);
+      return () => clearTimeout(timer);
     }
-  }, [formatted, current]);
+  }, [formatted, prev]);
 
   return (
-    <div className="flip-unit">
-      <div className={`flip-card ${flipping ? "flip" : ""}`}>
-        <div className="top">{current}</div>
+    <div className="flipbox">
+      <div className={`flip ${flip ? "animate" : ""}`}>
+        <div className="top">{prev}</div>
         <div className="bottom">{formatted}</div>
-        <div className="flap">
-          <div className="flap-front">{current}</div>
-          <div className="flap-back">{formatted}</div>
-        </div>
       </div>
-      <span className="label">{label}</span>
+      <div className="label">{label}</div>
     </div>
   );
 }
