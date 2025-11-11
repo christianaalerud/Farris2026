@@ -2,59 +2,85 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  perspective: 800px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Hver tidsenhet */
+/* hver tidsenhet */
 .flip-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Selve boksen */
+/* hele kortet */
 .flip-card {
   position: relative;
   width: 72px;
   height: 70px;
+  background: #fff;
+  border: 2px solid #111;
   border-radius: 10px;
   overflow: hidden;
-  background: #ffffff;
-  border: 2px solid #111;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-  /* Flip kun én gang når value endrer seg (via key) */
-  animation: flip 0.6s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-/* Øvre og nedre halvdel */
-.top,
-.bottom {
+/* øvre “flapp” */
+.upper {
   position: absolute;
-  width: 100%;
-  height: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #111;
-  font-size: 24px;
-  font-weight: 700;
-  backface-visibility: hidden;
-}
-
-.top {
   top: 0;
-  background: #ffffff;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  transform-origin: bottom;
+  transform: rotateX(0deg);
+  background: #fff;
   border-bottom: 1px solid #ddd;
 }
 
-.bottom {
-  bottom: 0;
+.front,
+.back {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   background: #f5f5f5;
   transform: rotateX(180deg);
 }
 
-/* Flip-animasjon – ser ut som ark som blar */
-@keyframes flip {
+/* nederste halvdel */
+.lower {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* flip-animasjon: bare den øvre flappen brettes ned */
+.flip-card.flipping .upper {
+  animation: flipDown 0.6s ease-in forwards;
+}
+
+@keyframes flipDown {
   0% {
     transform: rotateX(0deg);
   }
@@ -63,28 +89,24 @@
   }
 }
 
-/* Label under hver boks */
+/* label under */
 .label {
   margin-top: 4px;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 1px;
   color: #333;
+  letter-spacing: 1px;
 }
 
-/* Mobiltilpasning */
+/* responsivt */
 @media (max-width: 600px) {
   .flip-card {
     width: 56px;
     height: 56px;
   }
-
-  .top,
-  .bottom {
+  .front,
+  .back,
+  .lower {
     font-size: 18px;
-  }
-
-  .label {
-    font-size: 9px;
   }
 }
