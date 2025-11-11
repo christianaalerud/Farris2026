@@ -140,3 +140,20 @@ nav li {
     font-size: 16px;
   }
 }
+.hero-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+  margin-top: 40px;
+  margin-left: 60px;
+  flex-wrap: wrap;
+  width: fit-content;
+}
+
+.hero-header .logo-top img {
+  width: 220px;
+  height: auto;
+  user-select: none;
+  cursor: pointer;
+}
