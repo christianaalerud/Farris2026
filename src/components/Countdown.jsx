@@ -6,7 +6,7 @@ export default function Countdown() {
   const [time, setTime] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
   useEffect(() => {
-    const update = () => {
+    const timer = setInterval(() => {
       const now = Date.now();
       const diff = Math.max(targetDate - now, 0);
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -14,51 +14,44 @@ export default function Countdown() {
       const m = Math.floor((diff / (1000 * 60)) % 60);
       const s = Math.floor((diff / 1000) % 60);
       setTime({ d, h, m, s });
-    };
-    update();
-    const t = setInterval(update, 1000);
-    return () => clearInterval(t);
+    }, 1000);
+    return () => clearInterval(timer);
   }, [targetDate]);
 
   return (
     <div className="flipclock">
-      <FlipUnit value={time.d} label="DAGER" pad={3} />
-      <FlipUnit value={time.h} label="TIMER" pad={2} />
-      <FlipUnit value={time.m} label="MIN" pad={2} />
-      <FlipUnit value={time.s} label="SEK" pad={2} />
+      <FlipBox value={time.d} label="DAGER" pad={3} />
+      <FlipBox value={time.h} label="TIMER" pad={2} />
+      <FlipBox value={time.m} label="MIN" pad={2} />
+      <FlipBox value={time.s} label="SEK" pad={2} />
     </div>
   );
 }
 
-/* Én boks per tidsenhet */
-function FlipUnit({ value, label, pad }) {
-  const [prev, setPrev] = useState(value);
-  const [flip, setFlip] = useState(false);
+function FlipBox({ value, label, pad }) {
+  const [display, setDisplay] = useState(value);
+  const [flipping, setFlipping] = useState(false);
 
   useEffect(() => {
-    if (value !== prev) {
-      setFlip(true);
+    if (value !== display) {
+      setFlipping(true);
       const t = setTimeout(() => {
-        setFlip(false);
-        setPrev(value);
-      }, 600);
+        setDisplay(value);
+        setFlipping(false);
+      }, 350);
       return () => clearTimeout(t);
     }
-  }, [value, prev]);
+  }, [value, display]);
 
-  const current = prev.toString().padStart(pad, "0");
-  const next = value.toString().padStart(pad, "0");
+  const formatted = value.toString().padStart(pad, "0");
 
   return (
-    <div className="flip-unit">
-      <div className={`flip-card ${flip ? "flipping" : ""}`}>
-        <div className="card-upper">
-          <div className="half top">{current}</div>
-          <div className="half bottom">{next}</div>
-        </div>
-        <div className="card-lower">{next}</div>
+    <div className="flipbox">
+      <div className={`flip ${flipping ? "animate" : ""}`}>
+        <div className="flip-top">{formatted}</div>
+        <div className="flip-bottom">{formatted}</div>
       </div>
-      <span className="label">{label}</span>
+      <span className="flip-label">{label}</span>
     </div>
   );
 }
