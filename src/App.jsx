@@ -63,13 +63,12 @@ export default function App() {
         {page === "home" && (
           <>
             {/* LOGO UNDER INFOBAR */}
-         <div className="hero-header">
+     <div className="hero-header">
   <div className="logo-top" onClick={() => setPage("home")}>
     <img src={logo} alt="Farris Triatlon logo" />
   </div>
   <Countdown />
 </div>
-
 
             {/* HOVEDSEKSJON – RESPONSIV */}
             <div className="home-container">
