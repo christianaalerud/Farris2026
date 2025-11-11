@@ -62,43 +62,14 @@ export default function App() {
       <div className="page-wrapper" style={{ position: "relative", zIndex: 10 }}>
         {page === "home" && (
           <>
-        {/* LOGO + FLIPKLOKKE UNDER INFOBAR */}
-<div
-  className="hero-header"
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "40px",
-    marginTop: "40px",
-    marginLeft: "60px",
-    flexWrap: "wrap",
-  }}
->
-  <div
-    className="logo-top"
-    onClick={() => setPage("home")}
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      cursor: "pointer",
-    }}
-  >
-    <img
-      src={logo}
-      alt="Farris Triatlon logo"
-      style={{
-        width: "220px",
-        height: "auto",
-        userSelect: "none",
-      }}
-    />
+  {/* LOGO + FLIPKLOKKE UNDER INFOBAR */}
+<div className="hero-header">
+  <div className="logo-top" onClick={() => setPage("home")}>
+    <img src={logo} alt="Farris Triatlon logo" />
   </div>
-
-  {/* ÉN rad, én instans */}
   <Countdown />
 </div>
+
 
             {/* HOVEDSEKSJON – RESPONSIV */}
             <div className="home-container">
