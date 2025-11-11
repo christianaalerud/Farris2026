@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import "./Countdown.css";
 
 export default function Countdown() {
-  const eventDate = new Date("2026-06-20T09:00:00"); // <-- sett dato og klokkeslett her
+  const eventDate = new Date("2026-06-20T09:00:00"); // <-- Endre hvis ønskelig
   const [timeLeft, setTimeLeft] = useState({});
 
   useEffect(() => {
@@ -25,18 +26,27 @@ export default function Countdown() {
   }, []);
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "10px",
-        fontFamily: "Helvetica, Arial, sans-serif",
-        fontSize: "20px",
-        color: "#333",
-      }}
-    >
-      🕒{" "}
-      {`${timeLeft.days ?? 0}d ${timeLeft.hours ?? 0}t ${timeLeft.minutes ?? 0}m ${timeLeft.seconds ?? 0}s`}{" "}
-      igjen til Farris Triatlon 2026
+    <div className="countdown-container">
+      <h3 className="countdown-title">Nedtelling til Farris Triatlon 2026</h3>
+
+      <div className="countdown-grid">
+        <div className="countdown-box fade">
+          <div className="countdown-number">{timeLeft.days ?? 0}</div>
+          <div className="countdown-label">Dager</div>
+        </div>
+        <div className="countdown-box fade">
+          <div className="countdown-number">{timeLeft.hours ?? 0}</div>
+          <div className="countdown-label">Timer</div>
+        </div>
+        <div className="countdown-box fade">
+          <div className="countdown-number">{timeLeft.minutes ?? 0}</div>
+          <div className="countdown-label">Minutter</div>
+        </div>
+        <div className="countdown-box fade">
+          <div className="countdown-number">{timeLeft.seconds ?? 0}</div>
+          <div className="countdown-label">Sekunder</div>
+        </div>
+      </div>
     </div>
   );
 }
