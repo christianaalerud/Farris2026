@@ -18,7 +18,7 @@ h1 {
   align-items: flex-start;
   max-width: 1200px;
   margin: 80px auto;
-  padding: 0 40px;
+  padding-left: 80px;
   position: relative;
   z-index: 10;
 }
