@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Countdown from "./components/Countdown.jsx";
-
+import "leaflet/dist/leaflet.css";
 
 import Triatlon from "./pages/Triatlon.jsx";
 import Akvatlon from "./pages/Akvatlon.jsx";
