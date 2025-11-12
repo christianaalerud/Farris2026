@@ -2,12 +2,37 @@
 <html lang="no">
   <head>
     <meta charset="UTF-8" />
-    <title>Farris Triatlon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Farris Triatlon</title>
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo2.png" />
+
+    <!-- Leaflet CSS (nødvendig for kartvisning) -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha512-sA+e2c9dPZVfZP09Zf4e8X7qKc2H9Q9f/h4Lr8Auwl1xRnqQ3j8rZ3a+TgCS0gGJHMuP7I6mqbZ6G8jI1Lefxg=="
+      crossorigin=""
+    />
+
+    <!-- Tailwind base styles (blir generert automatisk av build) -->
   </head>
-  <body>
+
+  <body class="bg-white text-black">
     <div id="root"></div>
+
+    <!-- Leaflet JS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha512-o9N1j5xkzV7RlmDg6uf4TnHRl5uix+MiPezR0IxACaDOKhT5p+Mfu5ax8X1S4fE9o9t0kEWBbZ6YB7wVxu1hGA=="
+      crossorigin=""
+    ></script>
+
+    <!-- GPX-support for Leaflet -->
+    <script src="https://unpkg.com/leaflet-gpx"></script>
+
+    <!-- React app -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
