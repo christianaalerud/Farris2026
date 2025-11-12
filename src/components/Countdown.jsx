@@ -32,31 +32,33 @@ export default function Countdown() {
 }
 
 function FlipUnit({ value, label }) {
-  const [previousValue, setPreviousValue] = useState(value);
+  const [prev, setPrev] = useState(value);
   const [flipping, setFlipping] = useState(false);
 
   useEffect(() => {
-    if (value !== previousValue) {
+    if (value !== prev) {
       setFlipping(true);
       const timer = setTimeout(() => {
         setFlipping(false);
-        setPreviousValue(value);
+        setPrev(value);
       }, 700);
       return () => clearTimeout(timer);
     }
-  }, [value, previousValue]);
+  }, [value, prev]);
 
-  const prev = previousValue.toString().padStart(2, "0");
-  const next = value.toString().padStart(2, "0");
+  const prevTxt = prev.toString().padStart(2, "0");
+  const nextTxt = value.toString().padStart(2, "0");
 
   return (
     <div className={`flip-unit ${flipping ? "flipping" : ""}`}>
-      <div className="upper">{prev}</div>
-      <div className="lower">{next}</div>
+      {/* bare øvre tall synlig når ikke flipper */}
+      <div className="upper">{prevTxt}</div>
+      <div className="lower">{flipping ? nextTxt : ""}</div>
 
+      {/* klaffen som beveger seg */}
       <div className={`flipper ${flipping ? "flip" : ""}`}>
-        <div className="front">{prev}</div>
-        <div className="back">{next}</div>
+        <div className="front">{prevTxt}</div>
+        <div className="back">{nextTxt}</div>
       </div>
 
       <span className="label">{label}</span>
