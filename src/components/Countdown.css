@@ -128,3 +128,8 @@
     gap: 10px;
   }
 }
+
+/* Når klaffen flipper skal nedre del være skjult */
+.flip-unit.flipping .lower {
+  visibility: hidden;
+}
