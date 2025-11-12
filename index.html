@@ -21,7 +21,7 @@
       crossorigin=""
     />
 
-    <!-- Tailwind build styles (automatisk injisert ved build) -->
+    <!-- Tailwind build styles (injiseres automatisk av Vite) -->
   </head>
 
   <body class="bg-white text-black antialiased">
@@ -34,8 +34,10 @@
       crossorigin=""
     ></script>
 
-    <!-- GPX support for Leaflet -->
-    <script src="https://unpkg.com/leaflet-gpx"></script>
+    <!-- GPX support for Leaflet (må lastes før React) -->
+    <script type="module">
+      import "https://unpkg.com/leaflet-gpx@1.7.0/gpx.min.js";
+    </script>
 
     <!-- React app (Vite entry point) -->
     <script type="module" src="/src/main.jsx"></script>
