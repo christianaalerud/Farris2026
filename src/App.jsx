@@ -43,7 +43,7 @@ export default function App() {
             maxWidth: "800px",
             opacity: 0.08,
             pointerEvents: "none",
-            zIndex: 1
+            zIndex: 1,
           }}
         />
 
@@ -117,70 +117,56 @@ function Navbar() {
 
   const activeStyle = {
     fontWeight: "600",
-    color: "#2563eb", // Tailwind blå-600
-    borderBottom: "2px solid #2563eb"
+    color: "#2563eb", // blå-600
+    borderBottom: "2px solid #2563eb",
   };
 
   return (
-    <nav className="navbar">
-      <ul className="nav-list">
+    <nav
+      className="navbar sticky top-0 z-50 bg-white shadow-md border-b border-gray-100"
+      style={{
+        backdropFilter: "blur(8px)",
+        backgroundColor: "rgba(255,255,255,0.9)",
+      }}
+    >
+      <ul className="nav-list flex justify-center gap-6 py-3 text-gray-800 font-medium">
         <li>
           <NavLink to="/" end className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
             Hjem
           </NavLink>
         </li>
 
-        <li className="nav-dropdown">
-          Races ▾
-          <ul className="nav-dropdown-menu">
+        <li className="relative group">
+          <span className={navItem}>Races ▾</span>
+          <ul className="absolute hidden group-hover:block bg-white shadow-lg border border-gray-200 rounded-md mt-2">
             <li>
-              <NavLink to="/triatlon" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+              <NavLink to="/triatlon" className="block px-4 py-2 hover:bg-gray-50" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
                 Triatlon
               </NavLink>
             </li>
             <li>
-              <NavLink to="/akvatlon" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+              <NavLink to="/akvatlon" className="block px-4 py-2 hover:bg-gray-50" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
                 Akvatlon
               </NavLink>
             </li>
             <li>
-              <NavLink to="/svømming" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+              <NavLink to="/svømming" className="block px-4 py-2 hover:bg-gray-50" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
                 Svømming
               </NavLink>
             </li>
             <li>
-              <NavLink to="/løping" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+              <NavLink to="/løping" className="block px-4 py-2 hover:bg-gray-50" style={({ isActive }) => (isActive ? activeStyle : undefined)}>
                 Løping
               </NavLink>
             </li>
           </ul>
         </li>
 
-        <li>
-          <NavLink to="/deltakermanual" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
-            Deltakermanual
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/løypeprofiler" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
-            Løypeprofiler
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/faq" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
-            FAQ
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/om-oss" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
-            Om oss
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/påmelding" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
-            Påmelding
-          </NavLink>
-        </li>
+        <li><NavLink to="/deltakermanual" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>Deltakermanual</NavLink></li>
+        <li><NavLink to="/løypeprofiler" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>Løypeprofiler</NavLink></li>
+        <li><NavLink to="/faq" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>FAQ</NavLink></li>
+        <li><NavLink to="/om-oss" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>Om oss</NavLink></li>
+        <li><NavLink to="/påmelding" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>Påmelding</NavLink></li>
       </ul>
     </nav>
   );
