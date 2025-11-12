@@ -5,25 +5,44 @@ import L from "leaflet";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 // ------------------------------------------------------------
-//  GPX-visning (krever <script src="https://unpkg.com/leaflet-gpx"></script> i index.html)
+//  GPX-visning – laster leaflet-gpx dynamisk fra CDN
 // ------------------------------------------------------------
 function GPXTrack({ file, color }) {
   const map = useMap();
 
   useEffect(() => {
-    fetch(file)
-      .then((res) => res.text())
-      .then((gpxText) => {
-        const gpxLayer = new L.GPX(gpxText, {
-          async: true,
-          marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null },
-          polyline_options: { color, weight: 4, opacity: 0.9 },
-        })
-          .on("loaded", (e) => map.fitBounds(e.target.getBounds()))
-          .addTo(map);
+    let gpxLayer;
 
-        return () => map.removeLayer(gpxLayer);
-      });
+    async function loadGPX() {
+      // Last inn leaflet-gpx hvis den ikke finnes
+      if (!L.GPX) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://unpkg.com/leaflet-gpx";
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        });
+      }
+
+      // Hent GPX-data
+      const res = await fetch(file);
+      const gpxText = await res.text();
+
+      gpxLayer = new L.GPX(gpxText, {
+        async: true,
+        marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null },
+        polyline_options: { color, weight: 4, opacity: 0.9 },
+      })
+        .on("loaded", (e) => map.fitBounds(e.target.getBounds()))
+        .addTo(map);
+    }
+
+    loadGPX();
+
+    return () => {
+      if (gpxLayer) map.removeLayer(gpxLayer);
+    };
   }, [file, color, map]);
 
   return null;
@@ -65,8 +84,9 @@ export default function Løypeprofiler() {
 function Løype({ tittel, beskrivelse, gpxFile, farge }) {
   const [elevationData, setElevationData] = useState([]);
   const [stats, setStats] = useState({ dist: 0, climb: 0, max: 0 });
+  const [interactive, setInteractive] = useState(false);
 
-  // Hent høyde + distanse fra GPX
+  // Beregn høyde + distanse fra GPX
   useEffect(() => {
     fetch(gpxFile)
       .then((res) => res.text())
@@ -78,14 +98,19 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
         const points = [];
         let totalDistance = 0;
         let totalClimb = 0;
-        let lastLat = null, lastLon = null, lastEle = null, maxEle = 0;
+        let lastLat = null,
+          lastLon = null,
+          lastEle = null,
+          maxEle = 0;
 
         for (let i = 0; i < pts.length; i++) {
           const lat = parseFloat(pts[i].getAttribute("lat"));
           const lon = parseFloat(pts[i].getAttribute("lon"));
-          const ele = parseFloat(pts[i].getElementsByTagName("ele")[0]?.textContent || 0);
+          const ele = parseFloat(
+            pts[i].getElementsByTagName("ele")[0]?.textContent || 0
+          );
 
-          if (lastLat !== null) {
+          if (lastLat !== null && lastLon !== null) {
             const R = 6371;
             const dLat = ((lat - lastLat) * Math.PI) / 180;
             const dLon = ((lon - lastLon) * Math.PI) / 180;
@@ -113,10 +138,7 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
       });
   }, [gpxFile]);
 
-  // ------------------------------------------------------------
-  //  Kart med "scroll to activate"
-  // ------------------------------------------------------------
-  const [interactive, setInteractive] = useState(false);
+  // Scroll-lås for kart
   const enableInteraction = () => setInteractive(true);
   const disableInteraction = () => setInteractive(false);
 
@@ -125,6 +147,7 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
       <h2 className="text-2xl font-bold mb-2">{tittel}</h2>
       <p className="mb-4 text-gray-700">{beskrivelse}</p>
 
+      {/* Kart */}
       <div
         className="rounded-lg overflow-hidden shadow-sm mb-6 relative"
         onMouseLeave={disableInteraction}
@@ -138,7 +161,7 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
           </div>
         )}
         <MapContainer
-          style={{ height: "450px", width: "100%" }}   /* litt høyere kart */
+          style={{ height: "450px", width: "100%" }}
           center={[59.1, 10.0]}
           zoom={12}
           dragging={interactive}
