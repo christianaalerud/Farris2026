@@ -49,19 +49,16 @@ function Flip({ value, label }) {
   const prevFormatted = prev.toString().padStart(2, "0");
   const valFormatted = value.toString().padStart(2, "0");
 
-  return (
-    <div className="flipbox">
-      <div className="card">
-        <div className="top">{prevFormatted}</div>
-        <div className="bottom">{valFormatted}</div>
-
-        {/* øvre klaff */}
-        <div className={`flap top-flap ${flipping ? "flip" : ""}`}>
-          <div className="front">{prevFormatted}</div>
-          <div className="back">{valFormatted}</div>
-        </div>
-      </div>
-      <span className="label">{label}</span>
+return (
+  <div className={`flip-unit ${flipping ? "flipping" : ""}`}>
+    <div className="upper">{prev}</div>
+    <div className="lower">{next}</div>
+    <div className={`flipper ${flipping ? "flip" : ""}`}>
+      <div className="front">{prev}</div>
+      <div className="back">{next}</div>
     </div>
-  );
+    <span className="label">{label}</span>
+  </div>
+);
+
 }
