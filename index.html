@@ -3,12 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Farris Triatlon</title>
+    <meta
+      name="description"
+      content="Offisiell nettside for Farris Triatlon 2026 – informasjon, påmelding, løypeprofiler og resultater."
+    />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo2.png" />
 
-    <!-- Leaflet CSS (nødvendig for kartvisning) -->
+    <!-- Leaflet CSS (for kart) -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -16,10 +21,10 @@
       crossorigin=""
     />
 
-    <!-- Tailwind base styles (blir generert automatisk av build) -->
+    <!-- Tailwind build styles (automatisk injisert ved build) -->
   </head>
 
-  <body class="bg-white text-black">
+  <body class="bg-white text-black antialiased">
     <div id="root"></div>
 
     <!-- Leaflet JS -->
@@ -29,10 +34,10 @@
       crossorigin=""
     ></script>
 
-    <!-- GPX-support for Leaflet -->
+    <!-- GPX support for Leaflet -->
     <script src="https://unpkg.com/leaflet-gpx"></script>
 
-    <!-- React app -->
+    <!-- React app (Vite entry point) -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
