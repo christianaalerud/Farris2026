@@ -23,10 +23,10 @@ export default function Countdown() {
 
   return (
     <div className="flipclock">
-      <Flip value={time.d} label="DAGER" />
-      <Flip value={time.h} label="TIMER" />
-      <Flip value={time.m} label="MIN" />
-      <Flip value={time.s} label="SEK" />
+     <FlipUnit value={time.d} label="DAGER" />
+<FlipUnit value={time.h} label="TIMER" />
+<FlipUnit value={time.m} label="MIN" />
+<FlipUnit value={time.s} label="SEK" />
     </div>
   );
 }
