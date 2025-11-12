@@ -13,31 +13,26 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo2.png" />
 
-    <!-- Leaflet CSS -->
+    <!-- Leaflet CSS (uten integrity, slik at den ikke blokkeres) -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha512-sA+e2c9dPZVfZP09Zf4e8X7qKc2H9Q9f/h4Lr8Auwl1xRnqQ3j8rZ3a+TgCS0gGJHMuP7I6mqbZ6G8jI1Lefxg=="
       crossorigin=""
     />
 
-    <!-- Tailwind styles bygges inn automatisk -->
+    <!-- Tailwind CSS build injiseres automatisk -->
   </head>
 
   <body class="bg-white text-black antialiased">
     <div id="root"></div>
 
-    <!-- Leaflet core JS -->
+    <!-- Leaflet JS (uten integrity, slik at den lastes riktig) -->
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha512-o9N1j5xkzV7RlmDg6uf4TnHRl5uix+MiPezR0IxACaDOKhT5p+Mfu5ax8X1S4fE9o9t0kEWBbZ6YB7wVxu1hGA=="
       crossorigin=""
     ></script>
 
-    <!-- GPX-modul lastes før React -->
-    <script type="module" src="/leaflet-gpx-loader.js"></script>
-
-    <!-- React / Vite entry -->
+    <!-- React / Vite entry point -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
