@@ -169,10 +169,11 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
           style={{ height: "450px", width: "100%" }}
           center={[59.1, 10.0]}
           zoom={12}
-          dragging={interactive}
-          scrollWheelZoom={interactive}
-          doubleClickZoom={interactive}
+          dragging={true}
+          scrollWheelZoom={true}
+          doubleClickZoom={true}
         >
+
           <TileLayer
             attribution='&copy; OpenStreetMap'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
