@@ -61,21 +61,21 @@ export default function Løypeprofiler() {
       <Løype
         tittel="Svømming – 1500 m"
         beskrivelse="Start og mål ved Ragnhildrødvannet. En runde på 750 m svømmes to ganger."
-        gpxFile="/routes/swim.gpx"
+        gpxFile="/routes/Swim.gpx"
         farge="blue"
       />
 
       <Løype
         tittel="Sykling – 40 km"
         beskrivelse="Asfalt og kupert terreng gjennom Oklungen, Langangen og Bjørkedalen."
-        gpxFile="/routes/bike.gpx"
+        gpxFile="/routes/Bike.gpx"
         farge="green"
       />
 
       <Løype
         tittel="Løping – 10 km"
         beskrivelse="Asfalt og grusveier i naturskjønne omgivelser rundt Farris."
-        gpxFile="/routes/run.gpx"
+        gpxFile="/routes/Run.gpx"
         farge="red"
       />
     </div>
