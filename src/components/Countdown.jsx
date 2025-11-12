@@ -31,34 +31,35 @@ export default function Countdown() {
   );
 }
 
-function Flip({ value, label }) {
-  const [prev, setPrev] = useState(value);
+function FlipUnit({ value, label }) {
+  const [previousValue, setPreviousValue] = useState(value);
   const [flipping, setFlipping] = useState(false);
 
   useEffect(() => {
-    if (value !== prev) {
+    if (value !== previousValue) {
       setFlipping(true);
-      const t = setTimeout(() => {
+      const timer = setTimeout(() => {
         setFlipping(false);
-        setPrev(value);
-      }, 600);
-      return () => clearTimeout(t);
+        setPreviousValue(value);
+      }, 700);
+      return () => clearTimeout(timer);
     }
-  }, [value, prev]);
+  }, [value, previousValue]);
 
-  const prevFormatted = prev.toString().padStart(2, "0");
-  const valFormatted = value.toString().padStart(2, "0");
+  const prev = previousValue.toString().padStart(2, "0");
+  const next = value.toString().padStart(2, "0");
 
-return (
-  <div className={`flip-unit ${flipping ? "flipping" : ""}`}>
-    <div className="upper">{prev}</div>
-    <div className="lower">{next}</div>
-    <div className={`flipper ${flipping ? "flip" : ""}`}>
-      <div className="front">{prev}</div>
-      <div className="back">{next}</div>
+  return (
+    <div className={`flip-unit ${flipping ? "flipping" : ""}`}>
+      <div className="upper">{prev}</div>
+      <div className="lower">{next}</div>
+
+      <div className={`flipper ${flipping ? "flip" : ""}`}>
+        <div className="front">{prev}</div>
+        <div className="back">{next}</div>
+      </div>
+
+      <span className="label">{label}</span>
     </div>
-    <span className="label">{label}</span>
-  </div>
-);
-
+  );
 }
