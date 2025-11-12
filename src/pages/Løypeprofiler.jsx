@@ -2,32 +2,54 @@ import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-function GPXTrack({ file, color }) {
+function GPXTrack({ file, color, onLoaded }) {
   const map = useMap();
 
   useEffect(() => {
     let gpxLayer;
 
-    if (!L.GPX) {
-      console.warn("Leaflet-GPX mangler – sjekk index.html import");
-      return;
+    async function init() {
+      // 1. Vent til leaflet-gpx er lastet
+      if (!L.GPX) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://unpkg.com/leaflet-gpx@1.7.0/gpx.min.js";
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        });
+      }
+
+      // 2. Hent selve GPX-fila
+      const res = await fetch(file);
+      const text = await res.text();
+
+      // 3. Tegn ruten i kartet
+      gpxLayer = new L.GPX(text, {
+        async: true,
+        marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null },
+        polyline_options: { color, weight: 4, opacity: 0.9 },
+      })
+        .on("loaded", (e) => {
+          map.fitBounds(e.target.getBounds());
+          if (onLoaded) onLoaded(e.target);
+        })
+        .addTo(map);
     }
 
-    fetch(file)
-      .then((res) => res.text())
-      .then((gpxText) => {
-        gpxLayer = new L.GPX(gpxText, {
-          async: true,
-          marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null },
-          polyline_options: { color, weight: 4, opacity: 0.9 },
-        })
-          .on("loaded", (e) => map.fitBounds(e.target.getBounds()))
-          .addTo(map);
-      });
-
-    return () => gpxLayer && map.removeLayer(gpxLayer);
+    init().catch((err) => console.error("Feil ved lasting av GPX:", err));
+    return () => {
+      if (gpxLayer) map.removeLayer(gpxLayer);
+    };
   }, [file, color, map]);
 
   return null;
@@ -42,12 +64,14 @@ export default function Løypeprofiler() {
         gpxFile="/routes/swim.gpx"
         farge="blue"
       />
+
       <Løype
         tittel="Sykling – 40 km"
         beskrivelse="Asfalt og kupert terreng gjennom Oklungen, Langangen og Bjørkedalen."
         gpxFile="/routes/bike.gpx"
         farge="green"
       />
+
       <Løype
         tittel="Løping – 10 km"
         beskrivelse="Asfalt og grusveier i naturskjønne omgivelser rundt Farris."
@@ -61,29 +85,36 @@ export default function Løypeprofiler() {
 function Løype({ tittel, beskrivelse, gpxFile, farge }) {
   const [elevationData, setElevationData] = useState([]);
   const [stats, setStats] = useState({ dist: 0, climb: 0, max: 0 });
+  const [loading, setLoading] = useState(true);
   const [interactive, setInteractive] = useState(false);
 
+  function handleLoaded(layer) {
+    setLoading(false);
+  }
+
   useEffect(() => {
+    // Les høydeprofil og beregn statistikk
     fetch(gpxFile)
       .then((res) => res.text())
       .then((xmlText) => {
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(xmlText, "text/xml");
+        const xml = new DOMParser().parseFromString(xmlText, "text/xml");
         const pts = xml.getElementsByTagName("trkpt");
-        if (!pts.length) {
-          console.warn("Ingen trkpt i", gpxFile);
-          return;
-        }
+        if (!pts.length) return;
 
-        const points = [];
-        let dist = 0, climb = 0, lastLat = null, lastLon = null, lastEle = null, maxEle = 0;
+        const data = [];
+        let totalDist = 0,
+          totalClimb = 0,
+          maxEle = 0;
+        let lastLat, lastLon, lastEle;
 
         for (let i = 0; i < pts.length; i++) {
           const lat = parseFloat(pts[i].getAttribute("lat"));
           const lon = parseFloat(pts[i].getAttribute("lon"));
-          const ele = parseFloat(pts[i].getElementsByTagName("ele")[0]?.textContent || 0);
+          const ele = parseFloat(
+            pts[i].getElementsByTagName("ele")[0]?.textContent || 0
+          );
 
-          if (lastLat !== null) {
+          if (lastLat != null) {
             const R = 6371;
             const dLat = ((lat - lastLat) * Math.PI) / 180;
             const dLon = ((lon - lastLon) * Math.PI) / 180;
@@ -93,24 +124,26 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
                 Math.cos((lat * Math.PI) / 180) *
                 Math.sin(dLon / 2) ** 2;
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            dist += R * c;
-            if (lastEle && ele > lastEle) climb += ele - lastEle;
+            const dist = R * c;
+            totalDist += dist;
+            if (ele > lastEle) totalClimb += ele - lastEle;
           }
 
-          if (ele > maxEle) maxEle = ele;
-          points.push({ km: dist, høyde: ele });
+          maxEle = Math.max(maxEle, ele);
+          data.push({ km: totalDist, høyde: ele });
           lastLat = lat;
           lastLon = lon;
           lastEle = ele;
         }
 
-        setElevationData(points);
-        setStats({ dist, climb, max: maxEle });
+        setElevationData(data);
+        setStats({
+          dist: totalDist,
+          climb: totalClimb,
+          max: maxEle,
+        });
       });
   }, [gpxFile]);
-
-  const enableInteraction = () => setInteractive(true);
-  const disableInteraction = () => setInteractive(false);
 
   return (
     <div className="shadow-lg rounded-2xl p-6 bg-gray-50">
@@ -119,16 +152,22 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
 
       <div
         className="rounded-lg overflow-hidden shadow-sm mb-6 relative"
-        onMouseLeave={disableInteraction}
+        onMouseLeave={() => setInteractive(false)}
       >
         {!interactive && (
           <div
-            onClick={enableInteraction}
+            onClick={() => setInteractive(true)}
             className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center cursor-pointer text-sm text-gray-700 z-[1000]"
           >
             Klikk for å aktivere kart
           </div>
         )}
+        {loading && (
+          <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center z-[999] text-gray-600 text-sm">
+            Laster løype…
+          </div>
+        )}
+
         <MapContainer
           style={{ height: "450px", width: "100%" }}
           center={[59.1, 10.0]}
@@ -141,7 +180,7 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
             attribution='&copy; OpenStreetMap'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <GPXTrack file={gpxFile} color={farge} />
+          <GPXTrack file={gpxFile} color={farge} onLoaded={handleLoaded} />
         </MapContainer>
       </div>
 
