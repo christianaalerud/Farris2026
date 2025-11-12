@@ -7,26 +7,20 @@
   font-family: "Helvetica Neue", Arial, sans-serif;
 }
 
-.flipbox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.card {
+.flip-unit {
   position: relative;
   width: 85px;
   height: 100px;
-  border: 2px solid #111;
+  text-align: center;
   border-radius: 12px;
   overflow: hidden;
+  border: 2px solid #111;
   background: #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
-/* øvre og nedre faste halvdel */
-.top,
-.bottom {
+.upper,
+.lower {
   position: absolute;
   width: 100%;
   height: 50%;
@@ -39,35 +33,35 @@
   backface-visibility: hidden;
 }
 
-.top {
+.upper {
   top: 0;
   background: #fff;
   border-bottom: 1px solid #ccc;
   z-index: 1;
 }
 
-.bottom {
+.lower {
   bottom: 0;
   background: #f6f6f6;
   z-index: 0;
 }
 
-/* klaff som flipper ned */
-.flap {
+/* Klaffen som flipper */
+.flipper {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 50%;
-  overflow: hidden;
   transform-origin: bottom;
   transform-style: preserve-3d;
   backface-visibility: hidden;
   z-index: 2;
+  overflow: hidden;
 }
 
-.flap .front,
-.flap .back {
+.flipper .front,
+.flipper .back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -80,56 +74,53 @@
   backface-visibility: hidden;
 }
 
-.flap .front {
+.flipper .front {
   background: #fff;
   border-bottom: 1px solid #ccc;
 }
 
-.flap .back {
+.flipper .back {
   background: #f6f6f6;
   transform: rotateX(180deg);
 }
 
-/* flip-animasjon */
-.flap.flip {
-  animation: flipDown 0.6s ease-in-out forwards;
+/* selve flip-animasjonen */
+.flipper.flip {
+  animation: flipDown 0.7s ease-in-out forwards;
 }
 
 @keyframes flipDown {
-  0% {
-    transform: rotateX(0);
-  }
-  100% {
-    transform: rotateX(-180deg);
-  }
+  0% { transform: rotateX(0); }
+  100% { transform: rotateX(-180deg); }
+}
+
+/* Skjul nedre halvdel mens den flipper */
+.flip-unit.flipping .lower {
+  visibility: hidden;
 }
 
 .label {
-  margin-top: 8px;
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  text-align: center;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
   color: #333;
 }
 
-/* mobiljustering */
+/* Mobil */
 @media (max-width: 600px) {
-  .card {
+  .flip-unit {
     width: 60px;
     height: 70px;
   }
-  .top,
-  .bottom,
-  .flap .front,
-  .flap .back {
+  .upper,
+  .lower,
+  .flipper .front,
+  .flipper .back {
     font-size: 22px;
   }
-  .flipclock {
-    gap: 10px;
-  }
-}
-
-/* Når klaffen flipper skal nedre del være skjult */
-.flip-unit.flipping .lower {
-  visibility: hidden;
+  .flipclock { gap: 10px; }
 }
