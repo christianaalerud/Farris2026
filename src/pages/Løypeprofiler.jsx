@@ -66,22 +66,22 @@ export default function Løypeprofiler() {
   return (
     <div className="p-10 bg-white text-black space-y-20">
       <Løype
-        tittel="Svømming – 1500 m"
-        beskrivelse="Start og mål ved Ragnhildrødvannet. En runde på 750 m svømmes to ganger."
+        tittel="Svømming – ca.1500 m"
+        beskrivelse="Start og mål Ragnhildrødvannet. Svøm til enden av vannet, vend rundt bøyen og svøm tilbake."
         gpxFile="/routes/Swim.gpx"
         farge="blue"
       />
 
       <Løype
-        tittel="Sykling – 40 km"
+        tittel="Sykling – ca.33 km"
         beskrivelse="Asfalt og kupert terreng gjennom Oklungen, Langangen og Bjørkedalen."
         gpxFile="/routes/Bike.gpx"
         farge="green"
       />
 
       <Løype
-        tittel="Løping – 10 km"
-        beskrivelse="Asfalt og grusveier i naturskjønne omgivelser rundt Farris."
+        tittel="Løping – ca.10 km"
+        beskrivelse="Asfalt og grusveier i naturskjønne omgivelser forbi Stranda kapell og inn på grusvei. Følg veien til den ender og løp samme vei tilbake"
         gpxFile="/routes/Run.gpx"
         farge="red"
       />
