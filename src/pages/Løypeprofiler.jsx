@@ -4,7 +4,9 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
-// Viser GPX-spor på Leaflet-kart
+// ------------------------------------------------------------
+//  GPX-visning (krever <script src="https://unpkg.com/leaflet-gpx"></script> i index.html)
+// ------------------------------------------------------------
 function GPXTrack({ file, color }) {
   const map = useMap();
 
@@ -12,18 +14,12 @@ function GPXTrack({ file, color }) {
     fetch(file)
       .then((res) => res.text())
       .then((gpxText) => {
-        // Leser GPX via leaflet-gpx (som lastes fra CDN i index.html)
         const gpxLayer = new L.GPX(gpxText, {
           async: true,
-          polyline_options: {
-            color: color,
-            weight: 4,
-            opacity: 0.9,
-          },
+          marker_options: { startIconUrl: null, endIconUrl: null, shadowUrl: null },
+          polyline_options: { color, weight: 4, opacity: 0.9 },
         })
-          .on("loaded", (e) => {
-            map.fitBounds(e.target.getBounds());
-          })
+          .on("loaded", (e) => map.fitBounds(e.target.getBounds()))
           .addTo(map);
 
         return () => map.removeLayer(gpxLayer);
@@ -33,10 +29,12 @@ function GPXTrack({ file, color }) {
   return null;
 }
 
-// Hovedside med alle løypene
+// ------------------------------------------------------------
+//  Hovedkomponent
+// ------------------------------------------------------------
 export default function Løypeprofiler() {
   return (
-    <div className="p-10 bg-white text-black space-y-16">
+    <div className="p-10 bg-white text-black space-y-20">
       <Løype
         tittel="Svømming – 1500 m"
         beskrivelse="Start og mål ved Ragnhildrødvannet. En runde på 750 m svømmes to ganger."
@@ -53,7 +51,7 @@ export default function Løypeprofiler() {
 
       <Løype
         tittel="Løping – 10 km"
-        beskrivelse="Løype på asfalt og grusveier i naturskjønne omgivelser rundt Farris."
+        beskrivelse="Asfalt og grusveier i naturskjønne omgivelser rundt Farris."
         gpxFile="/routes/run.gpx"
         farge="red"
       />
@@ -61,11 +59,14 @@ export default function Løypeprofiler() {
   );
 }
 
-// Komponent for én løype
+// ------------------------------------------------------------
+//  Enkelt-kort for hver løype
+// ------------------------------------------------------------
 function Løype({ tittel, beskrivelse, gpxFile, farge }) {
   const [elevationData, setElevationData] = useState([]);
   const [stats, setStats] = useState({ dist: 0, climb: 0, max: 0 });
 
+  // Hent høyde + distanse fra GPX
   useEffect(() => {
     fetch(gpxFile)
       .then((res) => res.text())
@@ -77,33 +78,27 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
         const points = [];
         let totalDistance = 0;
         let totalClimb = 0;
-        let lastLat = null;
-        let lastLon = null;
-        let lastEle = null;
-        let maxEle = 0;
+        let lastLat = null, lastLon = null, lastEle = null, maxEle = 0;
 
         for (let i = 0; i < pts.length; i++) {
           const lat = parseFloat(pts[i].getAttribute("lat"));
           const lon = parseFloat(pts[i].getAttribute("lon"));
           const ele = parseFloat(pts[i].getElementsByTagName("ele")[0]?.textContent || 0);
 
-          if (lastLat !== null && lastLon !== null) {
-            const R = 6371; // Jordens radius i km
+          if (lastLat !== null) {
+            const R = 6371;
             const dLat = ((lat - lastLat) * Math.PI) / 180;
             const dLon = ((lon - lastLon) * Math.PI) / 180;
             const a =
-              Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.sin(dLat / 2) ** 2 +
               Math.cos((lastLat * Math.PI) / 180) *
                 Math.cos((lat * Math.PI) / 180) *
-                Math.sin(dLon / 2) *
-                Math.sin(dLon / 2);
+                Math.sin(dLon / 2) ** 2;
             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             const dist = R * c;
             totalDistance += dist;
 
-            if (lastEle !== null && ele > lastEle) {
-              totalClimb += ele - lastEle;
-            }
+            if (lastEle !== null && ele > lastEle) totalClimb += ele - lastEle;
           }
 
           if (ele > maxEle) maxEle = ele;
@@ -114,25 +109,42 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
         }
 
         setElevationData(points);
-        setStats({
-          dist: totalDistance,
-          climb: totalClimb,
-          max: maxEle,
-        });
+        setStats({ dist: totalDistance, climb: totalClimb, max: maxEle });
       });
   }, [gpxFile]);
+
+  // ------------------------------------------------------------
+  //  Kart med "scroll to activate"
+  // ------------------------------------------------------------
+  const [interactive, setInteractive] = useState(false);
+  const enableInteraction = () => setInteractive(true);
+  const disableInteraction = () => setInteractive(false);
 
   return (
     <div className="shadow-lg rounded-2xl p-6 bg-gray-50">
       <h2 className="text-2xl font-bold mb-2">{tittel}</h2>
       <p className="mb-4 text-gray-700">{beskrivelse}</p>
 
-      {/* Kart */}
-      <div className="rounded-lg overflow-hidden shadow-sm mb-6">
+      <div
+        className="rounded-lg overflow-hidden shadow-sm mb-6 relative"
+        onMouseLeave={disableInteraction}
+      >
+        {!interactive && (
+          <div
+            onClick={enableInteraction}
+            className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center cursor-pointer text-sm text-gray-700 z-[1000]"
+          >
+            Klikk for å aktivere kart
+          </div>
+        )}
         <MapContainer
-          style={{ height: "350px", width: "100%" }}
+          style={{ height: "450px", width: "100%" }}   /* litt høyere kart */
           center={[59.1, 10.0]}
           zoom={12}
+          dragging={interactive}
+          scrollWheelZoom={interactive}
+          doubleClickZoom={interactive}
+          zoomControl={true}
         >
           <TileLayer
             attribution='&copy; OpenStreetMap'
@@ -142,8 +154,15 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
         </MapContainer>
       </div>
 
+      {/* Statistikk */}
+      <div className="flex justify-between text-sm text-gray-600 mt-2 mb-4">
+        <span>Distanse: {stats.dist.toFixed(1)} km</span>
+        <span>Stigning: {Math.round(stats.climb)} m</span>
+        <span>Maks høyde: {Math.round(stats.max)} m</span>
+      </div>
+
       {/* Høydeprofil */}
-      <div className="h-48">
+      <div className="h-52">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={elevationData}>
             <XAxis
@@ -178,15 +197,8 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
         </ResponsiveContainer>
       </div>
 
-      {/* Stats under grafen */}
-      <div className="flex justify-between text-sm text-gray-600 mt-2">
-        <span>Distanse: {stats.dist.toFixed(1)} km</span>
-        <span>Stigning: {Math.round(stats.climb)} m</span>
-        <span>Maks høyde: {Math.round(stats.max)} m</span>
-      </div>
-
-      {/* Last ned-knapp */}
-      <div className="mt-4">
+      {/* Nedlasting */}
+      <div className="mt-5">
         <a
           href={gpxFile}
           download
