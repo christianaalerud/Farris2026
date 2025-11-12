@@ -1,6 +1,34 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import GPX from "react-leaflet-gpx";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import L from "leaflet";
+import { useEffect } from "react";
+
+function GPXTrack({ file, color }) {
+  const map = useMap();
+
+  useEffect(() => {
+    fetch(file)
+      .then((res) => res.text())
+      .then((gpxText) => {
+        const gpx = new L.GPX(gpxText, {
+          async: true,
+          polyline_options: {
+            color: color,
+            weight: 4,
+            opacity: 0.8,
+          },
+        })
+          .on("loaded", (e) => {
+            map.fitBounds(e.target.getBounds());
+          })
+          .addTo(map);
+      });
+  }, [file, color, map]);
+
+  return null;
+}
+
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 export default function Løypeprofiler() {
@@ -56,7 +84,7 @@ function Løype({ tittel, beskrivelse, gpxFile, farge }) {
             attribution='&copy; OpenStreetMap'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <GPX file={gpxFile} color={farge} />
+          <GPXTrack file={gpxFile} color={farge} />
         </MapContainer>
       </div>
 
