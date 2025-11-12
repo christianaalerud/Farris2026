@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import "./App.css";
-import Countdown from "./components/Countdown.jsx";
-import "leaflet/dist/leaflet.css";
+import InfoBar from "./pages/InfoBar.jsx";
 
 import Triatlon from "./pages/Triatlon.jsx";
 import Akvatlon from "./pages/Akvatlon.jsx";
@@ -12,164 +11,176 @@ import Løypeprofiler from "./pages/Løypeprofiler.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import OmOss from "./pages/OmOss.jsx";
 import Pamelding from "./pages/Pamelding.jsx";
-import InfoBar from "./pages/InfoBar";
+import Countdown from "./components/Countdown.jsx";
 
-const logo = "/logo3.png"; // brukes i logo-seksjon
-const backgroundLogo = "/logo2.png"; // bakgrunnslogo
+const logo = "/logo3.png";
+const backgroundLogo = "/logo2.png";
 
 export default function App() {
-  const [racesOpen, setRacesOpen] = useState(false);
-  const [page, setPage] = useState("home");
-
   return (
-    <div
-      style={{
-        position: "relative",
-        minHeight: "100vh",
-        backgroundColor: "white",
-        overflow: "hidden",
-      }}
-    >
-      {/* TOPPMENY */}
-      <Navbar
-        racesOpen={racesOpen}
-        setRacesOpen={setRacesOpen}
-        setPage={setPage}
-      />
-
-      {/* BAKGRUNNSLOGO */}
-      <img
-        src={backgroundLogo}
-        alt="Bakgrunnslogo"
-        className="background-logo"
+    <Router>
+      <div
         style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "60vw",
-          maxWidth: "800px",
-          opacity: 0.08,
-          pointerEvents: "none",
-          zIndex: 1,
+          position: "relative",
+          minHeight: "100vh",
+          backgroundColor: "white",
+          overflow: "hidden",
         }}
-      />
+      >
+        <Navbar />
 
-      {/* INFO-LINJE UNDER MENY */}
-      <InfoBar />
+        {/* Bakgrunnslogo */}
+        <img
+          src={backgroundLogo}
+          alt="Bakgrunnslogo"
+          className="background-logo"
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "60vw",
+            maxWidth: "800px",
+            opacity: 0.08,
+            pointerEvents: "none",
+            zIndex: 1
+          }}
+        />
 
-      {/* SIDEINNHOLD */}
-      <div className="page-wrapper" style={{ position: "relative", zIndex: 10 }}>
-        {page === "home" && (
-          <>
-  {/* LOGO + FLIPKLOKKE UNDER INFOBAR */}
-<div className="hero-header">
-  <div className="logo-top" onClick={() => setPage("home")}>
-    <img src={logo} alt="Farris Triatlon logo" />
-  </div>
-  <Countdown />
-</div>
+        <InfoBar />
 
+        <div className="page-wrapper" style={{ position: "relative", zIndex: 10 }}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div>
+                  <div className="hero-header">
+                    <div className="logo-top">
+                      <img src={logo} alt="Farris Triatlon logo" />
+                    </div>
+                    <Countdown />
+                  </div>
 
-            {/* HOVEDSEKSJON – RESPONSIV */}
-            <div className="home-container">
-              {/* VENSTRE: TEKST */}
-              <div className="home-text">
-                <h1>Velkommen til Farris Triatlon 2026!</h1>
-                <p>
-                  Farris Triatlon er et lavterskelarrangement for deg som liker
-                  frisk luft, fine folk og en utfordring du kan skryte av resten
-                  av året. Her får du nesten olympiske distanser, men med lokal
-                  sjarm og null krav om toppform.
-                </p>
-                <p>
-                  Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet.
-                  Ingen bølger, men kanskje en gjedde som lurer på hva du driver
-                  med. Deretter venter omtrent 40 km på sykkel gjennom Oklungen,
-                  Langangen og Bjørkedalen. Det blir asfalt, svinger, motbakker
-                  og god anledning til å snakke litt høyt med seg selv.
-                  Til slutt runder vi av med litt over 10 km løping på asfalt og
-                  skogsvei – akkurat passe langt til at du rekker å angre, men
-                  ikke lenge nok til at du gir opp.
-                </p>
-                <p>
-                  Du kan melde deg på én, to eller alle tre disipliner. Her er
-                  det plass til både deg som trener jevnt og deg som tenker
-                  &quot;hvor vanskelig kan det være?&quot; Farris Triatlon
-                  handler om å stille opp, kjenne på mestringen og ha det
-                  skikkelig gøy underveis uansett tempo, form eller erfaring.
-                  Det blir selvfølgelig medalje og finisher t-skjorte til alle
-                  som fullfører.
-                </p>
-              </div>
+                  <div className="home-container">
+                    <div className="home-text">
+                      <h1>Velkommen til Farris Triatlon 2026!</h1>
+                      <p>
+                        Farris Triatlon er et lavterskelarrangement for deg som liker
+                        frisk luft, fine folk og en utfordring du kan skryte av resten
+                        av året. Her får du nesten olympiske distanser, men med lokal
+                        sjarm og null krav om toppform.
+                      </p>
+                      <p>
+                        Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet.
+                        Deretter venter omtrent 40 km på sykkel gjennom Oklungen,
+                        Langangen og Bjørkedalen. Til slutt runder vi av med litt over
+                        10 km løping på asfalt og skogsvei – akkurat passe langt til
+                        at du rekker å angre, men ikke lenge nok til at du gir opp.
+                      </p>
+                      <p>
+                        Du kan melde deg på én, to eller alle tre disipliner.
+                        Arrangementet handler om mestring og glede – og alle som
+                        fullfører får medalje og finisher-t-skjorte.
+                      </p>
+                    </div>
 
-              {/* HØYRE: BILDER */}
-              <div className="home-images">
-                <img
-                  src="/images/triatlon1.jpg"
-                  alt="Triatlonbilde 1"
-                />
-                <img
-                  src="/images/triatlon2.jpg"
-                  alt="Triatlonbilde 2"
-                />
-                <img
-                  src="/images/triatlon3.jpg"
-                  alt="Triatlonbilde 3"
-                />
-              </div>
-            </div>
-          </>
-        )}
-
-        {page === "Triatlon" && <Triatlon />}
-        {page === "Akvatlon" && <Akvatlon />}
-        {page === "Svømming" && <Svømming />}
-        {page === "Løping" && <Løping />}
-        {page === "Deltakermanual" && <Deltakermanual />}
-        {page === "Løypeprofiler" && <Løypeprofiler />}
-        {page === "FAQ" && <FAQ />}
-        {page === "Om oss" && <OmOss />}
-        {page === "Påmelding" && <Pamelding />}
+                    <div className="home-images">
+                      <img src="/images/triatlon1.jpg" alt="Triatlonbilde 1" />
+                      <img src="/images/triatlon2.jpg" alt="Triatlonbilde 2" />
+                      <img src="/images/triatlon3.jpg" alt="Triatlonbilde 3" />
+                    </div>
+                  </div>
+                </div>
+              }
+            />
+            <Route path="/triatlon" element={<Triatlon />} />
+            <Route path="/akvatlon" element={<Akvatlon />} />
+            <Route path="/svømming" element={<Svømming />} />
+            <Route path="/løping" element={<Løping />} />
+            <Route path="/deltakermanual" element={<Deltakermanual />} />
+            <Route path="/løypeprofiler" element={<Løypeprofiler />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/om-oss" element={<OmOss />} />
+            <Route path="/påmelding" element={<Pamelding />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
-// ---------- NAVBAR ----------
-function Navbar({ racesOpen, setRacesOpen, setPage }) {
+/* -------------------- Navbar -------------------- */
+function Navbar() {
+  const navItem =
+    "hover:text-blue-600 transition-colors duration-200 px-2 py-1";
+
+  const activeStyle = {
+    fontWeight: "600",
+    color: "#2563eb", // Tailwind blå-600
+    borderBottom: "2px solid #2563eb"
+  };
+
   return (
     <nav className="navbar">
       <ul className="nav-list">
-        <li onClick={() => setPage("home")}>Hjem</li>
-
-        <li
-          className="nav-dropdown"
-          onClick={() => setRacesOpen(!racesOpen)}
-        >
-          Races ▾
-          {racesOpen && (
-            <ul className="nav-dropdown-menu">
-              {["Triatlon", "Akvatlon", "Svømming", "Løping"].map((r) => (
-                <li
-                  key={r}
-                  onClick={() => {
-                    setPage(r);
-                    setRacesOpen(false);
-                  }}
-                >
-                  {r}
-                </li>
-              ))}
-            </ul>
-          )}
+        <li>
+          <NavLink to="/" end className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            Hjem
+          </NavLink>
         </li>
 
-        <li onClick={() => setPage("Deltakermanual")}>Deltakermanual</li>
-        <li onClick={() => setPage("Løypeprofiler")}>Løypeprofiler</li>
-        <li onClick={() => setPage("FAQ")}>FAQ</li>
-        <li onClick={() => setPage("Om oss")}>Om oss</li>
-        <li onClick={() => setPage("Påmelding")}>Påmelding</li>
+        <li className="nav-dropdown">
+          Races ▾
+          <ul className="nav-dropdown-menu">
+            <li>
+              <NavLink to="/triatlon" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+                Triatlon
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/akvatlon" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+                Akvatlon
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/svømming" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+                Svømming
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/løping" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+                Løping
+              </NavLink>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <NavLink to="/deltakermanual" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            Deltakermanual
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/løypeprofiler" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            Løypeprofiler
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/faq" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            FAQ
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/om-oss" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            Om oss
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/påmelding" className={navItem} style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+            Påmelding
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
