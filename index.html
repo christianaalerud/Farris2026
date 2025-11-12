@@ -13,7 +13,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo2.png" />
 
-    <!-- Leaflet CSS (for kart) -->
+    <!-- Leaflet CSS -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -21,25 +21,23 @@
       crossorigin=""
     />
 
-    <!-- Tailwind build styles (injiseres automatisk av Vite) -->
+    <!-- Tailwind styles bygges inn automatisk -->
   </head>
 
   <body class="bg-white text-black antialiased">
     <div id="root"></div>
 
-    <!-- Leaflet JS -->
+    <!-- Leaflet core JS -->
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       integrity="sha512-o9N1j5xkzV7RlmDg6uf4TnHRl5uix+MiPezR0IxACaDOKhT5p+Mfu5ax8X1S4fE9o9t0kEWBbZ6YB7wVxu1hGA=="
       crossorigin=""
     ></script>
 
-    <!-- GPX support for Leaflet (må lastes før React) -->
-    <script type="module">
-      import "https://unpkg.com/leaflet-gpx@1.7.0/gpx.min.js";
-    </script>
+    <!-- GPX-modul lastes før React -->
+    <script type="module" src="/leaflet-gpx-loader.js"></script>
 
-    <!-- React app (Vite entry point) -->
+    <!-- React / Vite entry -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
