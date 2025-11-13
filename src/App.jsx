@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 
 import Countdown from "./components/Countdown.jsx";
+
 import Triatlon from "./pages/Triatlon.jsx";
 import Akvatlon from "./pages/Akvatlon.jsx";
 import Svømming from "./pages/Svømming.jsx";
@@ -26,7 +27,7 @@ export default function App() {
           overflow: "hidden",
         }}
       >
-        {/* Bakgrunnslogo */}
+        {/* BAKGRUNNSLOGO */}
         <img
           src={backgroundLogo}
           alt="Bakgrunnslogo"
@@ -44,36 +45,10 @@ export default function App() {
           }}
         />
 
-       function Navbar() {
-  return (
-    <nav>
-      <ul className="nav-list">
+        {/* NAVIGASJON */}
+        <Navbar />
 
-        <li><Link to="/">Hjem</Link></li>
-
-        {/* Races dropdown */}
-        <li className="nav-dropdown">
-          Races ▾
-          <ul className="nav-dropdown-menu">
-            <li><Link to="/triatlon">Triatlon</Link></li>
-            <li><Link to="/akvatlon">Akvatlon</Link></li>
-            <li><Link to="/svømming">Svømming</Link></li>
-            <li><Link to="/løping">Løping</Link></li>
-          </ul>
-        </li>
-
-        <li><Link to="/deltakermanual">Deltakermanual</Link></li>
-        <li><Link to="/løypeprofiler">Løypeprofiler</Link></li>
-        <li><Link to="/faq">FAQ</Link></li>
-        <li><Link to="/om-oss">Om oss</Link></li>
-        <li><Link to="/påmelding">Påmelding</Link></li>
-
-      </ul>
-    </nav>
-  );
-}
-
-        {/* Sidene */}
+        {/* SIDEINNHOLD */}
         <div style={{ position: "relative", zIndex: 10 }}>
           <Routes>
             {/* HJEM */}
@@ -81,18 +56,21 @@ export default function App() {
               path="/"
               element={
                 <div>
+                  {/* HERO – LOGO + COUNTDOWN */}
                   <div className="hero-header">
-                    <div className="logo-top" onClick={() => {}}>
+                    <div className="logo-top">
                       <img src={logo} alt="Farris Triatlon logo" />
                     </div>
                     <Countdown />
                   </div>
 
+                  {/* HOVEDINNHOLD – TEKST OG BILDER */}
                   <div className="home-container">
                     <div className="home-text">
 
-                      {/* ⭐ DIN TEKST – UENDRET ⭐ */}
-                      <h1>Velkommen til Farris Triatlon 2026!</h1>
+                      <h1 className="home-title">
+                        Velkommen til Farris Triatlon 2026!
+                      </h1>
 
                       <p>
                         Farris Triatlon er et lavterskelarrangement for deg som
@@ -126,7 +104,6 @@ export default function App() {
                       </p>
                     </div>
 
-                    {/* Høyre bilder */}
                     <div className="home-images">
                       <img src="/images/triatlon1.jpg" alt="Triatlonbilde 1" />
                       <img src="/images/triatlon2.jpg" alt="Triatlonbilde 2" />
@@ -137,7 +114,7 @@ export default function App() {
               }
             />
 
-            {/* ANDRE SIDER */}
+            {/* UNDERSIDER */}
             <Route path="/triatlon" element={<Triatlon />} />
             <Route path="/akvatlon" element={<Akvatlon />} />
             <Route path="/svømming" element={<Svømming />} />
@@ -155,25 +132,33 @@ export default function App() {
 }
 
 /* ----------------------------------------------------------
-   NAVBAR-KOMPONENT
+   NAVBAR MED "RACES" DROPDOWN
 ---------------------------------------------------------- */
 
 function Navbar() {
   return (
     <nav>
-      <ul>
+      <ul className="nav-list">
+
         <li><Link to="/">Hjem</Link></li>
 
-        <li><Link to="/triatlon">Triatlon</Link></li>
-        <li><Link to="/akvatlon">Akvatlon</Link></li>
-        <li><Link to="/svømming">Svømming</Link></li>
-        <li><Link to="/løping">Løping</Link></li>
+        {/* DROPDOWN */}
+        <li className="nav-dropdown">
+          Races ▾
+          <ul className="nav-dropdown-menu">
+            <li><Link to="/triatlon">Triatlon</Link></li>
+            <li><Link to="/akvatlon">Akvatlon</Link></li>
+            <li><Link to="/svømming">Svømming</Link></li>
+            <li><Link to="/løping">Løping</Link></li>
+          </ul>
+        </li>
 
         <li><Link to="/deltakermanual">Deltakermanual</Link></li>
         <li><Link to="/løypeprofiler">Løypeprofiler</Link></li>
         <li><Link to="/faq">FAQ</Link></li>
         <li><Link to="/om-oss">Om oss</Link></li>
         <li><Link to="/påmelding">Påmelding</Link></li>
+
       </ul>
     </nav>
   );
