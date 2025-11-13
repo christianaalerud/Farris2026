@@ -44,8 +44,34 @@ export default function App() {
           }}
         />
 
-        {/* Navbar */}
-        <Navbar />
+       function Navbar() {
+  return (
+    <nav>
+      <ul className="nav-list">
+
+        <li><Link to="/">Hjem</Link></li>
+
+        {/* Races dropdown */}
+        <li className="nav-dropdown">
+          Races ▾
+          <ul className="nav-dropdown-menu">
+            <li><Link to="/triatlon">Triatlon</Link></li>
+            <li><Link to="/akvatlon">Akvatlon</Link></li>
+            <li><Link to="/svømming">Svømming</Link></li>
+            <li><Link to="/løping">Løping</Link></li>
+          </ul>
+        </li>
+
+        <li><Link to="/deltakermanual">Deltakermanual</Link></li>
+        <li><Link to="/løypeprofiler">Løypeprofiler</Link></li>
+        <li><Link to="/faq">FAQ</Link></li>
+        <li><Link to="/om-oss">Om oss</Link></li>
+        <li><Link to="/påmelding">Påmelding</Link></li>
+
+      </ul>
+    </nav>
+  );
+}
 
         {/* Sidene */}
         <div style={{ position: "relative", zIndex: 10 }}>
