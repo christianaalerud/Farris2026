@@ -1,38 +1,46 @@
-/* ---------- GRUNNLEGGENDE STIL ---------- */
+/* ----------------------------------------------------------
+   GLOBAL BASE
+---------------------------------------------------------- */
+
 body {
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    Arial, sans-serif;
   background-color: white;
   color: #333;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1 {
   margin-top: 0;
 }
 
-/* ---------- HERO (logo + nedtelling) ---------- */
+/* ----------------------------------------------------------
+   HERO SECTION (logo + countdown)
+---------------------------------------------------------- */
+
 .hero-header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 40px;
   padding: 20px 80px 0 80px;
-}
-
-.logo-top {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 40px;
 }
 
 .logo-top img {
   height: 190px;
   width: auto;
   cursor: pointer;
+  user-select: none;
 }
 
-/* ---------- KONTAINER ---------- */
+/* ----------------------------------------------------------
+   HOMEPAGE LAYOUT
+---------------------------------------------------------- */
+
 .home-container {
   display: flex;
   justify-content: flex-start;
@@ -44,7 +52,6 @@ h1 {
   z-index: 10;
 }
 
-/* ---------- TEKST ---------- */
 .home-text {
   flex: 1 1 60%;
   padding-right: 40px;
@@ -56,7 +63,6 @@ h1 {
   color: #333;
 }
 
-/* ---------- BILDER ---------- */
 .home-images {
   flex: 1 1 35%;
   display: flex;
@@ -69,7 +75,10 @@ h1 {
   border-radius: 12px;
 }
 
-/* ---------- NAVBAR ---------- */
+/* ----------------------------------------------------------
+   NAVBAR
+---------------------------------------------------------- */
+
 nav {
   width: 100%;
   background: white;
@@ -96,13 +105,17 @@ nav li {
   cursor: pointer;
 }
 
-/* ---------- RESPONSIV / MOBIL ---------- */
+/* ----------------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------------- */
+
 @media (max-width: 900px) {
   .hero-header {
     flex-direction: column;
     align-items: center;
     gap: 20px;
     padding: 20px;
+    margin-left: 0;
   }
 
   .logo-top img {
@@ -139,21 +152,4 @@ nav li {
   .home-text p {
     font-size: 16px;
   }
-}
-.hero-header {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 40px;
-  margin-top: 40px;
-  margin-left: 60px;
-  flex-wrap: wrap;
-  width: fit-content;
-}
-
-.hero-header .logo-top img {
-  width: 220px;
-  height: auto;
-  user-select: none;
-  cursor: pointer;
 }
