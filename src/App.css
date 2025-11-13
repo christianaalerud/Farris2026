@@ -113,7 +113,7 @@ a:hover {
 }
 
 .logo-top img {
-  height: 190px;
+  height: 240px;
   width: auto;
   cursor: pointer;
   user-select: none;
@@ -128,9 +128,12 @@ a:hover {
   padding-left: 80px;
 }
 
-.home-text {
-  flex: 1 1 60%;
+.home-text h1 {
+  font-size: 3rem;      /* større enn alt annet */
+  font-weight: 800;     /* ekstra bold */
+  margin-bottom: 1.4rem;
 }
+
 
 .home-images {
   flex: 1 1 35%;
