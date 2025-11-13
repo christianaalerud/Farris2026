@@ -74,7 +74,7 @@ export default function App() {
                       </p>
 
                       <p>
-                        Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet. Ingen bølger, men kanskje en gjedde som lurer på hva du driver med. Deretter venter omtrent 40 km på sykkel gjennom Oklungen, Langangen og Bjørkedalen. Det blir asfalt, svinger, motbakker og god anledning til å snakke litt høyt med seg selv. Til slutt runder vi av med litt over 10 km løping på asfalt og skogsvei, akkurat passe langt til at du rekker å angre, men ikke lenge nok til at du gir opp.
+                        Vi starter med ca. 1500 meter svømming i Ragnhildrødvannet. Ingen bølger, men kanskje en gjedde som lurer på hva du driver med. Deretter venter omtrent 34 km på sykkel gjennom Oklungen, Langangen og Bjørkedalen. Det blir asfalt, svinger, motbakker og god anledning til å snakke litt høyt med seg selv. Til slutt runder vi av med litt over 10 km løping på asfalt og skogsvei, akkurat passe langt til at du rekker å angre, men ikke lenge nok til at du gir opp.
                       </p>
 
                       <p>
