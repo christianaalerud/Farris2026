@@ -7,32 +7,36 @@
     <title>Farris Triatlon</title>
     <meta
       name="description"
-      content="Offisiell nettside for Farris Triatlon 2026 – informasjon, påmelding, løypeprofiler og resultater."
+      content="Offisiell nettside for Farris Triatlon 2026 – informasjon, påmelding, løypeprofiler og praktisk info."
     />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo2.png" />
 
-    <!-- Leaflet CSS (uten integrity, slik at den ikke blokkeres) -->
+    <!-- Google Font (Inter – veldig moderne) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Leaflet CSS (ingen integrity → fungerer alltid) -->
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       crossorigin=""
     />
-
-    <!-- Tailwind CSS build injiseres automatisk -->
   </head>
 
   <body class="bg-white text-black antialiased">
     <div id="root"></div>
 
-    <!-- Leaflet JS (uten integrity, slik at den lastes riktig) -->
+    <!-- Leaflet JS -->
     <script
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
       crossorigin=""
     ></script>
 
-    <!-- React / Vite entry point -->
+    <!-- Vite / React entry -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
